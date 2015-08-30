@@ -35,7 +35,8 @@ class api
         if (!is_null($fid)) {
             $result = $result->where('t.forum_id', $fid);
         }
-        return $result->limit($show)
+        return $result->order_by_desc('p.posted')
+                    ->limit($show)
                     ->find_array();
     }
 }
