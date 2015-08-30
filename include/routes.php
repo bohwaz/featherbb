@@ -82,6 +82,9 @@ $feather->group('/user', function() use ($feather) {
     $feather->map('/:id(/action/:action)(/)', '\controller\profile:action')->conditions(array('id' => '[0-9]+'))->via('GET', 'POST');
 });
 
+$feather->group('/api', function () use ($feather) {
+    $feather->get('/topics(/fid/:fid)(/show/:show)(/:output)(/)', '\controller\api:topics')->conditions(array('fid' => '[0-9]+', 'show' => '[0-9]+'));
+});
 /**
  * Middleware to check if user is allowed to moderate, if he's not redirect to homepage.
  */
