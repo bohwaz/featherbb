@@ -14,6 +14,7 @@ class api
     const DEFAULT_SHOW = 2;
     const DEFAULT_SORT = 'desc';
     const DEFAULT_OUTPUT = 'json';
+    const TTL = 180;
 
     protected $sort,
               $show,
@@ -37,7 +38,14 @@ class api
     {
         $fid = ($fid < 1) ? $fid = null : (int) $fid;
 
-        $data = \model\api::get_topics($fid, $this->show, $this->sort);
+        $cache_id = 'topics:'.$fid.':'.$this->show.':'.$this->sort;
+
+        if (!$this->feather->cache->isCached($cache_id)) {
+            $this->feather->cache->store($cache_id, \model\api::get_topics($fid, $this->show, $this->sort), self::TTL);
+        }
+
+        $data = $this->feather->cache->retrieve($cache_id);
+        
         if (!empty($data)) {
             echo json_encode($data, JSON_PRETTY_PRINT);
         } else {
