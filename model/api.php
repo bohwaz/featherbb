@@ -14,7 +14,7 @@ class api
 {
     protected static $app;
 
-    public static function get_topics($fid = null, $show)
+    public static function get_topics($fid = null, $show, $sort)
     {
         self::$app = \Slim\Slim::getInstance();
 
@@ -35,8 +35,14 @@ class api
         if (!is_null($fid)) {
             $result = $result->where('t.forum_id', $fid);
         }
-        return $result->order_by_desc('p.posted')
-                    ->limit($show)
+
+        if ($sort == 'asc') {
+            $result = $result->order_by_asc('p.posted');
+        } else {
+            $result = $result->order_by_desc('p.posted');
+        }
+
+        return $result->limit($show)
                     ->find_array();
     }
 }

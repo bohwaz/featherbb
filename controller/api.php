@@ -11,25 +11,33 @@ namespace controller;
 
 class api
 {
-    const MAX_DISPLAY = 15;
+    const DEFAULT_SHOW = 2;
+    const DEFAULT_SORT = 'desc';
+    const DEFAULT_OUTPUT = 'json';
+
+    protected $sort,
+              $show,
+              $output;
 
     public function __construct()
     {
         $this->feather = \Slim\Slim::getInstance();
         load_textdomain('featherbb', $this->feather->forum_env['FEATHER_ROOT'].'lang/'.$this->feather->user->language.'/common.mo');
         load_textdomain('featherbb', $this->feather->forum_env['FEATHER_ROOT'].'lang/'.$this->feather->user->language.'/index.mo');
+
+        // Set filtering params
+        $get = $this->feather->request->get();
+        $this->sort = (!isset($get['sort']) || !in_array($get['sort'], array('asc', 'desc'))) ? self::DEFAULT_SORT : (string) $get['sort'];
+        $this->output = (!isset($get['output']) || !in_array($get['output'], array('json'))) ? self::DEFAULT_OUTPUT : (string) $get['output'];
+        $this->show = (!isset($get['show']) || $get['show'] < 1) ? self::DEFAULT_SHOW : (int) $get['show'];
+        $this->show = (isset($get['all'])) ? null : $this->show;
     }
 
-    public function topics($output = 'json', $show = self::MAX_DISPLAY, $fid = null)
+    public function topics($fid = null)
     {
-        if (!in_array($output, array('json', 'atom'))) {
-            $output = 'json';
-        }
-
-        $show = ($show < 1 || $show > 50) ? $show = self::MAX_DISPLAY : (int) $show;
         $fid = ($fid < 1) ? $fid = null : (int) $fid;
-        
-        $data = \model\api::get_topics($fid, $show);
+
+        $data = \model\api::get_topics($fid, $this->show, $this->sort);
         if (!empty($data)) {
             echo json_encode($data, JSON_PRETTY_PRINT);
         } else {
