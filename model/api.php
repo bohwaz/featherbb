@@ -18,7 +18,7 @@ class api
     {
         self::$app = \Slim\Slim::getInstance();
 
-        $select_show_recent_topics = array('f.forum_name', 'topic_name' => 't.subject', 'topic_creator' => 't.poster', 'topic_last_post' => 'p.posted', 'topic_last_poster' => 'p.poster', 'topic_last_message' => 'p.message');
+        $select_show_recent_topics = array('forum' => 'f.forum_name', 't.id', 't.subject', 'author' => 't.poster', 'date' => 't.posted', 'last_post_date' => 'p.posted', 'last_post_author' => 'p.poster', 'last_post' => 'p.message');
         $where_show_recent_topics = array(
             array('fp.read_forum' => 'IS NULL'),
             array('fp.read_forum' => '1')
