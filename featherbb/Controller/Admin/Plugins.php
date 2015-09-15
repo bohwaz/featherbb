@@ -52,7 +52,7 @@ class Plugins
         if (!$plugin) throw new Error(__('Bad request'), 400);
         $this->model->activate($plugin);
         // Plugin has been activated, confirm and redirect
-        Url::redirect($this->feather->urlFor('adminPlugins'), 'Plugin activated!');
+        Url::redirect($this->feather->pathFor('adminPlugins'), 'Plugin activated!');
     }
 
     public function deactivate($plugin = null)
@@ -60,7 +60,7 @@ class Plugins
         if (!$plugin) throw new Error(__('Bad request'), 400);
         $this->model->deactivate($plugin);
         // // Plugin has been deactivated, confirm and redirect
-        Url::redirect($this->feather->urlFor('adminPlugins'), array('warning', 'Plugin deactivated!'));
+        Url::redirect($this->feather->pathFor('adminPlugins'), array('warning', 'Plugin deactivated!'));
     }
 
     public function uninstall($plugin = null)
@@ -68,7 +68,7 @@ class Plugins
         if (!$plugin) throw new Error(__('Bad request'), 400);
         $this->model->uninstall($plugin);
         // // Plugin has been deactivated, confirm and redirect
-        Url::redirect($this->feather->urlFor('adminPlugins'), array('warning', 'Plugin deactivated!'));
+        Url::redirect($this->feather->pathFor('adminPlugins'), array('warning', 'Plugin deactivated!'));
     }
 
     public function info($pluginName = null)

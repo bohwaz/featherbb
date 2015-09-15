@@ -24,20 +24,20 @@ if (!isset($feather)) {
 					<li<?php if ($page == 'index') {
     echo ' class="isactive"';
 }
-    ?>><a href="<?= $feather->urlFor('adminIndex') ?>"><?php _e('Index') ?></a></li>
+    ?>><a href="<?= $feather->pathFor('adminIndex') ?>"><?php _e('Index') ?></a></li>
 					<li<?php if ($page == 'users') {
     echo ' class="isactive"';
 }
-    ?>><a href="<?= $feather->urlFor('adminUsers') ?>"><?php _e('Users') ?></a></li>
+    ?>><a href="<?= $feather->pathFor('adminUsers') ?>"><?php _e('Users') ?></a></li>
 <?php if ($is_admin || $feather->user->g_mod_ban_users == '1'): ?>					<li<?php if ($page == 'bans') {
     echo ' class="isactive"';
 }
-    ?>><a href="<?= $feather->urlFor('adminBans') ?>"><?php _e('Bans') ?></a></li>
+    ?>><a href="<?= $feather->pathFor('adminBans') ?>"><?php _e('Bans') ?></a></li>
 <?php endif;
     if ($is_admin || $feather->forum_settings['o_report_method'] == '0' || $feather->forum_settings['o_report_method'] == '2'): ?>					<li<?php if ($page == 'reports') {
     echo ' class="isactive"';
 }
-    ?>><a href="<?= $feather->urlFor('adminReports') ?>"><?php _e('Reports') ?></a></li>
+    ?>><a href="<?= $feather->pathFor('adminReports') ?>"><?php _e('Reports') ?></a></li>
 <?php endif;
     ?>				</ul>
 			</div>
@@ -53,39 +53,39 @@ if (!isset($feather)) {
 					<li<?php if ($page == 'options') {
     echo ' class="isactive"';
 }
-        ?>><a href="<?= $feather->urlFor('adminOptions') ?>"><?php _e('Options') ?></a></li>
+        ?>><a href="<?= $feather->pathFor('adminOptions') ?>"><?php _e('Options') ?></a></li>
 					<li<?php if ($page == 'permissions') {
     echo ' class="isactive"';
 }
-        ?>><a href="<?= $feather->urlFor('adminPermissions') ?>"><?php _e('Permissions') ?></a></li>
+        ?>><a href="<?= $feather->pathFor('adminPermissions') ?>"><?php _e('Permissions') ?></a></li>
 					<li<?php if ($page == 'categories') {
     echo ' class="isactive"';
 }
-        ?>><a href="<?= $feather->urlFor('adminCategories') ?>"><?php _e('Categories') ?></a></li>
+        ?>><a href="<?= $feather->pathFor('adminCategories') ?>"><?php _e('Categories') ?></a></li>
 					<li<?php if ($page == 'forums') {
     echo ' class="isactive"';
 }
-        ?>><a href="<?= $feather->urlFor('adminForums') ?>"><?php _e('Forums') ?></a></li>
+        ?>><a href="<?= $feather->pathFor('adminForums') ?>"><?php _e('Forums') ?></a></li>
 					<li<?php if ($page == 'groups') {
     echo ' class="isactive"';
 }
-        ?>><a href="<?= $feather->urlFor('adminGroups') ?>"><?php _e('User groups') ?></a></li>
+        ?>><a href="<?= $feather->pathFor('adminGroups') ?>"><?php _e('User groups') ?></a></li>
 					<li<?php if ($page == 'plugins') {
     echo ' class="isactive"';
 }
-        ?>><a href="<?= $feather->urlFor('adminPlugins') ?>"><?= 'Plugins'; ?></a></li>
+        ?>><a href="<?= $feather->pathFor('adminPlugins') ?>"><?= 'Plugins'; ?></a></li>
 					<li<?php if ($page == 'censoring') {
     echo ' class="isactive"';
 }
-        ?>><a href="<?= $feather->urlFor('adminCensoring') ?>"><?php _e('Censoring') ?></a></li>
+        ?>><a href="<?= $feather->pathFor('adminCensoring') ?>"><?php _e('Censoring') ?></a></li>
 					<li<?php if ($page == 'parser') {
     echo ' class="isactive"';
 }
-        ?>><a href="<?= $feather->urlFor('adminParser') ?>"><?php _e('Parser') ?></a></li>
+        ?>><a href="<?= $feather->pathFor('adminParser') ?>"><?php _e('Parser') ?></a></li>
 					<li<?php if ($page == 'maintenance') {
     echo ' class="isactive"';
 }
-        ?>><a href="<?= $feather->urlFor('adminMaintenance') ?>"><?php _e('Maintenance') ?></a></li>
+        ?>><a href="<?= $feather->pathFor('adminMaintenance') ?>"><?php _e('Maintenance') ?></a></li>
 				</ul>
 			</div>
 		</div>
@@ -104,7 +104,7 @@ if (!isset($feather)) {
 
         foreach ($plugins as $plugin) {
             $plugin_url = URL::url_friendly($plugin);
-            echo "\t\t\t\t\t".'<li'.(($page == $plugin_url) ? ' class="isactive"' : '').'><a href="'.$feather->urlFor('infoPlugin', ['name' => $plugin_url]).'">'.$plugin.'</a></li>'."\n";
+            echo "\t\t\t\t\t".'<li'.(($page == $plugin_url) ? ' class="isactive"' : '').'><a href="'.$feather->pathFor('infoPlugin', ['name' => $plugin_url]).'">'.$plugin.'</a></li>'."\n";
         }
 
         ?>

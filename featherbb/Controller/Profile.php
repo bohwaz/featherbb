@@ -165,13 +165,13 @@ class Profile
                     throw new Error(__('Bad request'), 404);
                 }
 
-                $avatar_field = '<span><a href="'.$this->feather->urlFor('profileAction', ['id' => $id, 'action' => 'upload_avatar']).'">'.__('Change avatar').'</a></span>';
+                $avatar_field = '<span><a href="'.$this->feather->pathFor('profileAction', ['id' => $id, 'action' => 'upload_avatar']).'">'.__('Change avatar').'</a></span>';
 
                 $user_avatar = Utils::generate_avatar_markup($id);
                 if ($user_avatar) {
-                    $avatar_field .= ' <span><a href="'.$this->feather->urlFor('profileAction', ['id' => $id, 'action' => 'delete_avatar']).'">'.__('Delete avatar').'</a></span>';
+                    $avatar_field .= ' <span><a href="'.$this->feather->pathFor('profileAction', ['id' => $id, 'action' => 'delete_avatar']).'">'.__('Delete avatar').'</a></span>';
                 } else {
-                    $avatar_field = '<span><a href="'.$this->feather->urlFor('profileAction', ['id' => $id, 'action' => 'upload_avatar']).'">'.__('Upload avatar').'</a></span>';
+                    $avatar_field = '<span><a href="'.$this->feather->pathFor('profileAction', ['id' => $id, 'action' => 'upload_avatar']).'">'.__('Upload avatar').'</a></span>';
                 }
 
                 if ($user['signature'] != '') {
@@ -311,7 +311,7 @@ class Profile
 
             $this->model->delete_avatar($id);
 
-            Url::redirect($this->feather->urlFor('profileSection', array('id' => $id, 'section' => 'personality')), __('Avatar deleted redirect'));
+            Url::redirect($this->feather->pathFor('profileSection', array('id' => $id, 'section' => 'personality')), __('Avatar deleted redirect'));
         } elseif ($action == 'promote') {
             if ($this->user->g_id != $this->feather->forum_env['FEATHER_ADMIN'] && ($this->user->g_moderator != '1' || $this->user->g_mod_promote_users == '0')) {
                 throw new Error(__('No permission'), 403);

@@ -19,7 +19,7 @@ if (!isset($feather)) {
 	<div class="blockform">
 		<h2><span><?php _e('Prune head') ?></span></h2>
 		<div class="box">
-			<form method="post" action="<?= $feather->urlFor('adminMaintenance') ?>">
+			<form method="post" action="<?= $feather->pathFor('adminMaintenance') ?>">
 				<input type="hidden" name="<?= $csrf_key; ?>" value="<?= $csrf_token; ?>">
 				<div class="inform">
 					<input type="hidden" name="action" value="prune" />

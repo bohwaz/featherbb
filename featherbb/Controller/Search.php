@@ -70,7 +70,7 @@ class Search
                 $this->feather->template->addTemplate('search/footer.php', 10)->display();
 
             } else {
-                Url::redirect($this->feather->urlFor('search'), __('No hits'));
+                Url::redirect($this->feather->pathFor('search'), __('No hits'));
             }
         }
         // Display the form
@@ -87,6 +87,6 @@ class Search
 
     public function quicksearches($show)
     {
-        Url::redirect($this->feather->urlFor('search').'?action=show_'.$show);
+        Url::redirect($this->feather->pathFor('search').'?action=show_'.$show);
     }
 }

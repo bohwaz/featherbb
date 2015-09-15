@@ -50,7 +50,7 @@ class Censoring
         $this->feather->cache->store('search_for', Cache::get_censoring('search_for'));
         $this->feather->cache->store('replace_with', Cache::get_censoring('replace_with'));
 
-        Url::redirect($this->feather->urlFor('adminCensoring'), __('Word added redirect'));
+        Url::redirect($this->feather->pathFor('adminCensoring'), __('Word added redirect'));
     }
 
     public function update_word()
@@ -78,7 +78,7 @@ class Censoring
         $this->feather->cache->store('search_for', Cache::get_censoring('search_for'));
         $this->feather->cache->store('replace_with', Cache::get_censoring('replace_with'));
 
-        Url::redirect($this->feather->urlFor('adminCensoring'), __('Word updated redirect'));
+        Url::redirect($this->feather->pathFor('adminCensoring'), __('Word updated redirect'));
     }
 
     public function remove_word()
@@ -94,7 +94,7 @@ class Censoring
         $this->feather->cache->store('search_for', Cache::get_censoring('search_for'));
         $this->feather->cache->store('replace_with', Cache::get_censoring('replace_with'));
 
-        Url::redirect($this->feather->urlFor('adminCensoring'),  __('Word removed redirect'));
+        Url::redirect($this->feather->pathFor('adminCensoring'),  __('Word removed redirect'));
     }
 
     public function get_words()

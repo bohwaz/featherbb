@@ -19,7 +19,7 @@ if (!isset($feather)) {
 	<div class="blockform">
 		<h2><span><?php _e('Move users') ?></span></h2>
 		<div class="box">
-			<form name="confirm_move_users" method="post" action="<?= $feather->urlFor('adminUsers') ?>">
+			<form name="confirm_move_users" method="post" action="<?= $feather->pathFor('adminUsers') ?>">
 				<input type="hidden" name="<?= $csrf_key; ?>" value="<?= $csrf_token; ?>">
 				<input type="hidden" name="users" value="<?= implode(',', $move['user_ids']) ?>" />
 				<div class="inform">

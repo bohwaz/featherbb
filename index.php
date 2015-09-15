@@ -18,13 +18,26 @@ require 'vendor/autoload.php';
 
 // Instantiate Slim and add CSRF
 $feather = new \Slim\App();
-$feather->add(new \FeatherBB\Middleware\Csrf());
 
 $feather_settings = array('config_file' => 'featherbb/config.php',
-                          'cache_dir' => 'cache/',
-                          'debug' => 'all'); // 3 levels : false, info (only execution time and number of queries), and all (display info + queries)
-$feather->add(new \FeatherBB\Middleware\Auth());
-$feather->add(new \FeatherBB\Middleware\Core($feather_settings));
+    'cache_dir' => 'cache/',
+    'debug' => 'all'); // 3 levels : false, info (only execution time and number of queries), and all (display info + queries)
+
+$container = $feather->getContainer();
+
+$container['csrf'] = function () {
+    return new \FeatherBB\Middleware\Csrf;
+};
+$container['auth'] = function () {
+    return new \FeatherBB\Middleware\Auth();
+};
+$container['core'] = function () use ($feather_settings) {
+    return new \FeatherBB\Middleware\Core($feather_settings);
+};
+
+$feather->add($container->get('csrf'));
+$feather->add($container->get('auth'));
+$feather->add($container->get('core'));
 
 // Load the routes
 require 'featherbb/routes.php';

@@ -47,6 +47,6 @@ class Permissions
         $this->feather->cache->store('config', Cache::get_config());
         // $this->clear_feed_cache();
 
-        Url::redirect($this->feather->urlFor('adminPermissions'), __('Perms updated redirect'));
+        Url::redirect($this->feather->pathFor('adminPermissions'), __('Perms updated redirect'));
     }
 }

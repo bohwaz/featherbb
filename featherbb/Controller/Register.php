@@ -31,7 +31,7 @@ class Register
     public function display()
     {
         if (!$this->user->is_guest) {
-            Url::redirect($this->feather->urlFor('home'));
+            Url::redirect($this->feather->pathFor('home'));
         }
 
         // Antispam feature
@@ -75,14 +75,14 @@ class Register
 
     public function cancel()
     {
-        Url::redirect($this->feather->urlFor('home'));
+        Url::redirect($this->feather->pathFor('home'));
     }
 
     public function rules()
     {
         // If we are logged in, we shouldn't be here
         if (!$this->user->is_guest) {
-            Url::redirect($this->feather->urlFor('home'));
+            Url::redirect($this->feather->pathFor('home'));
         }
 
         // Display an error message if new registrations are disabled
@@ -91,7 +91,7 @@ class Register
         }
 
         if ($this->config['o_rules'] != '1') {
-            Url::redirect($this->feather->urlFor('register'));
+            Url::redirect($this->feather->pathFor('register'));
         }
 
         $this->feather->template->setPageInfo(array(

@@ -20,7 +20,7 @@ use FeatherBB\Core\Track;
 use FeatherBB\Core\Utils;
 use FeatherBB\Model\Cache;
 
-class Auth extends \Slim\Middleware
+class Auth
 {
     protected $model;
 

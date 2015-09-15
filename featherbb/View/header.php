@@ -112,28 +112,28 @@ endif;
 $navlinks[] = '<li id="navindex"'.(($active_page == 'index') ? ' class="isactive"' : '').'><a href="'.Url::base().'/">'.__('Index').'</a></li>'."\n";
 
 if ($feather->user->g_read_board == '1' && $feather->user->g_view_users == '1') {
-    $navlinks[] = '<li id="navuserlist"'.(($active_page == 'userlist') ? ' class="isactive"' : '').'><a href="'.$feather->urlFor('userList').'">'.__('User list').'</a></li>'."\n";
+    $navlinks[] = '<li id="navuserlist"'.(($active_page == 'userlist') ? ' class="isactive"' : '').'><a href="'.$feather->pathFor('userList').'">'.__('User list').'</a></li>'."\n";
 }
 
 if ($feather->forum_settings['o_rules'] == '1' && (!$feather->user->is_guest || $feather->user->g_read_board == '1' || $feather->forum_settings['o_regs_allow'] == '1')) {
-    $navlinks[] = '<li id="navrules"'.(($active_page == 'rules') ? ' class="isactive"' : '').'><a href="'.$feather->urlFor('rules').'">'.__('Rules').'</a></li>'."\n";
+    $navlinks[] = '<li id="navrules"'.(($active_page == 'rules') ? ' class="isactive"' : '').'><a href="'.$feather->pathFor('rules').'">'.__('Rules').'</a></li>'."\n";
 }
 
 if ($feather->user->g_read_board == '1' && $feather->user->g_search == '1') {
-    $navlinks[] = '<li id="navsearch"'.(($active_page == 'search') ? ' class="isactive"' : '').'><a href="'.$feather->urlFor('search').'">'.__('Search').'</a></li>'."\n";
+    $navlinks[] = '<li id="navsearch"'.(($active_page == 'search') ? ' class="isactive"' : '').'><a href="'.$feather->pathFor('search').'">'.__('Search').'</a></li>'."\n";
 }
 
 if ($feather->user->is_guest) {
-    $navlinks[] = '<li id="navregister"'.(($active_page == 'register') ? ' class="isactive"' : '').'><a href="'.$feather->urlFor('register').'">'.__('Register').'</a></li>'."\n";
-    $navlinks[] = '<li id="navlogin"'.(($active_page == 'login') ? ' class="isactive"' : '').'><a href="'.$feather->urlFor('login').'">'.__('Login').'</a></li>'."\n";
+    $navlinks[] = '<li id="navregister"'.(($active_page == 'register') ? ' class="isactive"' : '').'><a href="'.$feather->pathFor('register').'">'.__('Register').'</a></li>'."\n";
+    $navlinks[] = '<li id="navlogin"'.(($active_page == 'login') ? ' class="isactive"' : '').'><a href="'.$feather->pathFor('login').'">'.__('Login').'</a></li>'."\n";
 } else {
-    $navlinks[] = '<li id="navprofile"'.(($active_page == 'profile') ? ' class="isactive"' : '').'><a href="'.$feather->urlFor('userProfile', ['id' => $feather->user->id]).'">'.__('Profile').'</a></li>'."\n";
+    $navlinks[] = '<li id="navprofile"'.(($active_page == 'profile') ? ' class="isactive"' : '').'><a href="'.$feather->pathFor('userProfile', ['id' => $feather->user->id]).'">'.__('Profile').'</a></li>'."\n";
 
     if ($feather->user->is_admmod) {
-        $navlinks[] = '<li id="navadmin"'.(($active_page == 'admin') ? ' class="isactive"' : '').'><a href="'.$feather->urlFor('adminIndex').'">'.__('Admin').'</a></li>'."\n";
+        $navlinks[] = '<li id="navadmin"'.(($active_page == 'admin') ? ' class="isactive"' : '').'><a href="'.$feather->pathFor('adminIndex').'">'.__('Admin').'</a></li>'."\n";
     }
 
-    $navlinks[] = '<li id="navlogout"><a href="'.$feather->urlFor('logout', ['token' => Random::hash($feather->user->id.Random::hash($feather->request->getIp()))]).'">'.__('Logout').'</a></li>'."\n";
+    $navlinks[] = '<li id="navlogout"><a href="'.$feather->pathFor('logout', ['token' => Random::hash($feather->user->id.Random::hash($feather->request->getIp()))]).'">'.__('Logout').'</a></li>'."\n";
 }
 
 // Are there any additional navlinks we should insert into the array before imploding it?
@@ -184,12 +184,12 @@ if ($feather->user->is_guest) { ?>
     if ($feather->user->is_admmod) {
         if ($feather->forum_settings['o_report_method'] == '0' || $feather->forum_settings['o_report_method'] == '2') {
             if ($has_reports) {
-                echo "\t\t\t\t\t\t".'<li class="reportlink"><span><strong><a href="'.$feather->urlFor('adminReports').'">'.__('New reports').'</a></strong></span></li>'."\n";
+                echo "\t\t\t\t\t\t".'<li class="reportlink"><span><strong><a href="'.$feather->pathFor('adminReports').'">'.__('New reports').'</a></strong></span></li>'."\n";
             }
         }
 
         if ($feather->forum_settings['o_maintenance'] == '1') {
-            echo "\t\t\t\t\t\t".'<li class="maintenancelink"><span><strong><a href="'.$feather->urlFor('adminMaintenance').'">'.__('Maintenance mode enabled').'</a></strong></span></li>'."\n";
+            echo "\t\t\t\t\t\t".'<li class="maintenancelink"><span><strong><a href="'.$feather->pathFor('adminMaintenance').'">'.__('Maintenance mode enabled').'</a></strong></span></li>'."\n";
         }
     }
     echo "\t\t\t\t\t".'</ul>'."\n";
@@ -199,11 +199,11 @@ if ($feather->user->g_read_board == '1' && $feather->user->g_search == '1') {
     echo "\t\t\t\t\t".'<ul class="conr">'."\n";
     echo "\t\t\t\t\t\t".'<li><span>'.__('Topic searches').' ';
     if (!$feather->user->is_guest) {
-        echo '<a href="'.$feather->urlFor('quickSearch', ['show' => 'replies']).'" title="'.__('Show posted topics').'">'.__('Posted topics').'</a> | ';
-        echo '<a href="'.$feather->urlFor('quickSearch', ['show' => 'new']).'" title="'.__('Show new posts').'">'.__('New posts header').'</a> | ';
+        echo '<a href="'.$feather->pathFor('quickSearch', ['show' => 'replies']).'" title="'.__('Show posted topics').'">'.__('Posted topics').'</a> | ';
+        echo '<a href="'.$feather->pathFor('quickSearch', ['show' => 'new']).'" title="'.__('Show new posts').'">'.__('New posts header').'</a> | ';
     }
-    echo '<a href="'.$feather->urlFor('quickSearch', ['show' => 'recent']).'" title="'.__('Show active topics').'">'.__('Active topics').'</a> | ';
-    echo '<a href="'.$feather->urlFor('quickSearch', ['show' => 'unanswered']).'" title="'.__('Show unanswered topics').'">'.__('Unanswered topics').'</a>';
+    echo '<a href="'.$feather->pathFor('quickSearch', ['show' => 'recent']).'" title="'.__('Show active topics').'">'.__('Active topics').'</a> | ';
+    echo '<a href="'.$feather->pathFor('quickSearch', ['show' => 'unanswered']).'" title="'.__('Show unanswered topics').'">'.__('Unanswered topics').'</a>';
     echo '</li>'."\n";
     echo "\t\t\t\t".'</ul>'."\n";
 } ?>

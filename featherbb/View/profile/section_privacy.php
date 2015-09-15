@@ -19,7 +19,7 @@ if (!isset($feather)) {
 <div class="blockform">
 	<h2><span><?= Utils::escape($user['username']).' - '.__('Section privacy') ?></span></h2>
 	<div class="box">
-		<form id="profile6" method="post" action="<?= $feather->urlFor('profileSection', ['id' => $id, 'section' => 'privacy']) ?>">
+		<form id="profile6" method="post" action="<?= $feather->pathFor('profileSection', ['id' => $id, 'section' => 'privacy']) ?>">
 			<input type="hidden" name="<?= $csrf_key; ?>" value="<?= $csrf_token; ?>">
 			<div class="inform">
 				<fieldset>

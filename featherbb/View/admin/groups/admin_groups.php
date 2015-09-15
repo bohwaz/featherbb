@@ -21,7 +21,7 @@ if (!isset($feather)) {
 		<div class="box">
 				<div class="inform">
 					<fieldset>
-                        <form id="groups" method="post" action="<?= $feather->urlFor('addGroup') ?>">
+                        <form id="groups" method="post" action="<?= $feather->pathFor('addGroup') ?>">
                         <input type="hidden" name="<?= $csrf_key; ?>" value="<?= $csrf_token; ?>">
 						<legend><?php _e('Add group subhead') ?></legend>
 						<div class="infldset">
@@ -54,7 +54,7 @@ foreach ($groups as $cur_group) {
 				</div>
 				<div class="inform">
 					<fieldset>
-                        <form id="groups" method="post" action="<?= $feather->urlFor('adminGroups') ?>">
+                        <form id="groups" method="post" action="<?= $feather->pathFor('adminGroups') ?>">
                         	<input type="hidden" name="<?= $csrf_key; ?>" value="<?= $csrf_token; ?>">
 						<legend><?php _e('Default group subhead') ?></legend>
 						<div class="infldset">
@@ -98,7 +98,7 @@ foreach ($groups as $cur_group) {
 							<table>
 <?php
 foreach ($groups as $cur_group) {
-    echo "\t\t\t\t\t\t\t\t".'<tr><th scope="row"><a href="'.$feather->urlFor('editGroup', ['id' => $cur_group['g_id']]).'" tabindex="'.$cur_index++.'">'.__('Edit link').'</a>'.(($cur_group['g_id'] > $feather->forum_env['FEATHER_MEMBER']) ? ' | <a href="'.$feather->urlFor('deleteGroup', ['id' => $cur_group['g_id']]).'" tabindex="'.$cur_index++.'">'.__('Delete link').'</a>' : '').'</th><td>'.Utils::escape($cur_group['g_title']).'</td></tr>'."\n";
+    echo "\t\t\t\t\t\t\t\t".'<tr><th scope="row"><a href="'.$feather->pathFor('editGroup', ['id' => $cur_group['g_id']]).'" tabindex="'.$cur_index++.'">'.__('Edit link').'</a>'.(($cur_group['g_id'] > $feather->forum_env['FEATHER_MEMBER']) ? ' | <a href="'.$feather->pathFor('deleteGroup', ['id' => $cur_group['g_id']]).'" tabindex="'.$cur_index++.'">'.__('Delete link').'</a>' : '').'</th><td>'.Utils::escape($cur_group['g_title']).'</td></tr>'."\n";
 }
 
 ?>

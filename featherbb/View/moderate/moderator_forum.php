@@ -21,7 +21,7 @@ if (!isset($feather)) {
 	<div class="inbox crumbsplus">
 		<ul class="crumbs">
 			<li><a href="<?= Url::base() ?>"><?php _e('Index') ?></a></li>
-			<li><span>»&#160;</span><a href="<?= $feather->urlFor('Forum', ['id' => $id, 'name' => $url_forum]) ?>"><?= Utils::escape($cur_forum['forum_name']) ?></a></li>
+			<li><span>»&#160;</span><a href="<?= $feather->pathFor('Forum', ['id' => $id, 'name' => $url_forum]) ?>"><?= Utils::escape($cur_forum['forum_name']) ?></a></li>
 			<li><span>»&#160;</span><strong><?php _e('Moderate') ?></strong></li>
 		</ul>
 		<div class="pagepost">
@@ -31,7 +31,7 @@ if (!isset($feather)) {
 	</div>
 </div>
 
-<form method="post" action="<?= $feather->urlFor('dealPosts', ['fid' => $id, 'page' => $p]) ?>">
+<form method="post" action="<?= $feather->pathFor('dealPosts', ['fid' => $id, 'page' => $p]) ?>">
 <input type="hidden" name="<?= $csrf_key; ?>" value="<?= $csrf_token; ?>">
 <input type="hidden" name="page" value="<?= Utils::escape($p) ?>" />
 <div id="vf" class="blocktable">
@@ -95,7 +95,7 @@ if (!isset($feather)) {
 		</div>
 		<ul class="crumbs">
 			<li><a href="<?= Url::base() ?>"><?php _e('Index') ?></a></li>
-			<li><span>»&#160;</span><a href="<?= $feather->urlFor('Forum', ['id' => $id, 'name' => $url_forum]) ?>"><?= Utils::escape($cur_forum['forum_name']) ?></a></li>
+			<li><span>»&#160;</span><a href="<?= $feather->pathFor('Forum', ['id' => $id, 'name' => $url_forum]) ?>"><?= Utils::escape($cur_forum['forum_name']) ?></a></li>
 			<li><span>»&#160;</span><strong><?php _e('Moderate') ?></strong></li>
 		</ul>
 		<div class="clearer"></div>

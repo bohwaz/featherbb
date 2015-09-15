@@ -20,8 +20,8 @@ if (!isset($feather)) {
 	<div class="inbox crumbsplus">
 		<ul class="crumbs">
 			<li><a href="<?= Url::base() ?>"><?php _e('Index') ?></a></li>
-			<li><span>»&#160;</span><a href="<?= $feather->urlFor('Forum', ['id' => $fid, 'name' => $url_forum]) ?>"><?= Utils::escape($cur_topic['forum_name']) ?></a></li>
-			<li><span>»&#160;</span><a href="<?= $feather->urlFor('Topic', ['id' => $id, 'name' => $url_topic]) ?>"><?= Utils::escape($cur_topic['subject']) ?></a></li>
+			<li><span>»&#160;</span><a href="<?= $feather->pathFor('Forum', ['id' => $fid, 'name' => $url_forum]) ?>"><?= Utils::escape($cur_topic['forum_name']) ?></a></li>
+			<li><span>»&#160;</span><a href="<?= $feather->pathFor('Topic', ['id' => $id, 'name' => $url_topic]) ?>"><?= Utils::escape($cur_topic['subject']) ?></a></li>
 			<li><span>»&#160;</span><strong><?php _e('Moderate') ?></strong></li>
 		</ul>
 		<div class="pagepost">
@@ -45,7 +45,7 @@ foreach ($post_data as $post) {
     echo ' blockpost1';
 }
     ?>">
-		<h2><span><span class="conr">#<?php echo($start_from + $post_count) ?></span> <a href="<?= $feather->urlFor('viewPost', ['pid' => $post['id']]).'#p'.$post['id'] ?>"><?= $feather->utils->format_time($post['posted']) ?></a></span></h2>
+		<h2><span><span class="conr">#<?php echo($start_from + $post_count) ?></span> <a href="<?= $feather->pathFor('viewPost', ['pid' => $post['id']]).'#p'.$post['id'] ?>"><?= $feather->utils->format_time($post['posted']) ?></a></span></h2>
 		<div class="box">
 			<div class="inbox">
 				<div class="postbody">
@@ -88,8 +88,8 @@ foreach ($post_data as $post) {
 		</div>
 		<ul class="crumbs">
 			<li><a href="<?= Url::base() ?>"><?php _e('Index') ?></a></li>
-			<li><span>»&#160;</span><a href="<?= $feather->urlFor('Forum', ['id' => $fid, 'name' => $url_forum]) ?>"><?= Utils::escape($cur_topic['forum_name']) ?></a></li>
-			<li><span>»&#160;</span><a href="<?= $feather->urlFor('Topic', ['id' => $id, 'name' => $url_topic]) ?>"><?= Utils::escape($cur_topic['subject']) ?></a></li>
+			<li><span>»&#160;</span><a href="<?= $feather->pathFor('Forum', ['id' => $fid, 'name' => $url_forum]) ?>"><?= Utils::escape($cur_topic['forum_name']) ?></a></li>
+			<li><span>»&#160;</span><a href="<?= $feather->pathFor('Topic', ['id' => $id, 'name' => $url_topic]) ?>"><?= Utils::escape($cur_topic['subject']) ?></a></li>
 			<li><span>»&#160;</span><strong><?php _e('Moderate') ?></strong></li>
 		</ul>
 		<div class="clearer"></div>

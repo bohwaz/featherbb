@@ -90,7 +90,7 @@ if (!isset($feather)) {
             foreach ($userlist_data as $user) {
                 ?>
 					<tr>
-						<td class="tcl"><?= '<a href="'.$feather->urlFor('userProfile', ['id' => $user['id']]).'">'.Utils::escape($user['username']).'</a>' ?></td>
+						<td class="tcl"><?= '<a href="'.$feather->pathFor('userProfile', ['id' => $user['id']]).'">'.Utils::escape($user['username']).'</a>' ?></td>
 						<td class="tc2"><?= Utils::get_title($user) ?></td>
 	<?php if ($show_post_count): ?>					<td class="tc3"><?= Utils::forum_number_format($user['num_posts']) ?></td>
 	<?php endif;

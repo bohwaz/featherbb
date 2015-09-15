@@ -36,7 +36,7 @@ class Test extends BasePlugin
 
     public function addNavlink($navlinks)
     {
-        $navlinks[] = '3 = <a href="'.$this->feather->urlFor('FPtest').'">Test plugin</a>';
+        $navlinks[] = '3 = <a href="'.$this->feather->pathFor('FPtest').'">Test plugin</a>';
         return $navlinks;
     }
 

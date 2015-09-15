@@ -40,11 +40,11 @@ if (!isset($feather)) {
 				<dl>
 					<dt><?php _e('FeatherBB version label') ?></dt>
 					<dd>
-						<?php printf(__('FeatherBB version data')."\n", $feather->forum_settings['o_cur_version'], '<a href="'.$feather->urlFor('adminAction', ['action' => 'check_upgrade']).'">'.__('Check for upgrade').'</a>') ?>
+						<?php printf(__('FeatherBB version data')."\n", $feather->forum_settings['o_cur_version'], '<a href="'.$feather->pathFor('adminAction', ['action' => 'check_upgrade']).'">'.__('Check for upgrade').'</a>') ?>
 					</dd>
 					<dt><?php _e('Server statistics label') ?></dt>
 					<dd>
-						<a href="<?= $feather->urlFor('statistics') ?>"><?php _e('View server statistics') ?></a>
+						<a href="<?= $feather->pathFor('statistics') ?>"><?php _e('View server statistics') ?></a>
 					</dd>
 					<dt><?php _e('Support label') ?></dt>
 					<dd>

@@ -52,7 +52,7 @@ class PrivateMessages
         $p = (!isset($page) || $page <= 1 || $page > $num_pages) ? 1 : intval($page);
         $start_from = $this->feather->user['disp_topics'] * ($p - 1);
 
-        $paging_links = '<span class="pages-label">'.__('Pages').' </span>'.Url::paginate($num_pages, $p, $this->feather->urlFor('Conversations', ['id' => $fid]).'/#');
+        $paging_links = '<span class="pages-label">'.__('Pages').' </span>'.Url::paginate($num_pages, $p, $this->feather->pathFor('Conversations', ['id' => $fid]).'/#');
 
         $limit = $this->feather->user['disp_topics'];
         $messages = $this->model->getMessages($fid, $uid, $limit, $start_from);

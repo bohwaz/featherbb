@@ -40,9 +40,9 @@ class Index
             }
 
             if (version_compare($this->config['o_cur_version'], $latest_version, '>=')) {
-                Url::redirect($this->feather->urlFor('adminIndex'), __('Running latest version message'));
+                Url::redirect($this->feather->pathFor('adminIndex'), __('Running latest version message'));
             } else {
-                Url::redirect($this->feather->urlFor('adminIndex'), sprintf(__('New version available message'), '<a href="http://featherbb.org/">FeatherBB.org</a>'));
+                Url::redirect($this->feather->pathFor('adminIndex'), sprintf(__('New version available message'), '<a href="http://featherbb.org/">FeatherBB.org</a>'));
             }
         }
 

@@ -19,8 +19,8 @@ if (!isset($feather)) {
 <div class="linkst">
 	<div class="inbox crumbsplus">
 		<ul class="crumbs">
-			<li><a href="<?= $feather->urlFor('adminIndex') ?>"><?php _e('Admin').' '.__('Index') ?></a></li>
-			<li><span>»&#160;</span><a href="<?= $feather->urlFor('adminUsers') ?>"><?php _e('Users') ?></a></li>
+			<li><a href="<?= $feather->pathFor('adminIndex') ?>"><?php _e('Admin').' '.__('Index') ?></a></li>
+			<li><span>»&#160;</span><a href="<?= $feather->pathFor('adminUsers') ?>"><?php _e('Users') ?></a></li>
 			<li><span>»&#160;</span><strong><?php _e('Results head') ?></strong></li>
 		</ul>
 		<div class="pagepost">
@@ -48,10 +48,10 @@ if (!isset($feather)) {
         foreach ($ip_data as $ip) {
             ?>
 				<tr>
-					<td class="tcl"><a href="<?= $feather->urlFor('getHostIp', ['ip' => Utils::escape($ip['poster_ip'])]) ?>"><?= Utils::escape($ip['poster_ip']) ?></a></td>
+					<td class="tcl"><a href="<?= $feather->pathFor('getHostIp', ['ip' => Utils::escape($ip['poster_ip'])]) ?>"><?= Utils::escape($ip['poster_ip']) ?></a></td>
 					<td class="tc2"><?= $feather->utils->format_time($ip['last_used']) ?></td>
 					<td class="tc3"><?= $ip['used_times'] ?></td>
-					<td class="tcr"><a href="<?= $feather->urlFor('usersIpShow', ['id' => $ip['poster_ip']]) ?>"><?php _e('Results find more link') ?></a></td>
+					<td class="tcr"><a href="<?= $feather->pathFor('usersIpShow', ['id' => $ip['poster_ip']]) ?>"><?php _e('Results find more link') ?></a></td>
 				</tr>
 <?php
 
@@ -73,8 +73,8 @@ if (!isset($feather)) {
 			<p class="pagelink"><?= $paging_links ?></p>
 		</div>
 		<ul class="crumbs">
-			<li><a href="<?= $feather->urlFor('adminIndex') ?>"><?php _e('Admin').' '.__('Index') ?></a></li>
-			<li><span>»&#160;</span><a href="<?= $feather->urlFor('adminUsers') ?>"><?php _e('Users') ?></a></li>
+			<li><a href="<?= $feather->pathFor('adminIndex') ?>"><?php _e('Admin').' '.__('Index') ?></a></li>
+			<li><span>»&#160;</span><a href="<?= $feather->pathFor('adminUsers') ?>"><?php _e('Users') ?></a></li>
 			<li><span>»&#160;</span><strong><?php _e('Results head') ?></strong></li>
 		</ul>
 		<div class="clearer"></div>

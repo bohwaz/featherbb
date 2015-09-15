@@ -15,5 +15,5 @@ if (!isset($feather)) {
 }
 ?>
 <h1><?php _e('Rebuilding index info') ?></h1>
-<script type="text/javascript">window.location="<?= $feather->urlFor('adminMaintenance').$query_str ?>"</script>
-<p><?= sprintf(__('Javascript redirect failed'), '<a href="'.$feather->urlFor('adminMaintenance').$query_str.'">'.__('Click here').'</a>')?></p>
+<script type="text/javascript">window.location="<?= $feather->pathFor('adminMaintenance').$query_str ?>"</script>
+<p><?= sprintf(__('Javascript redirect failed'), '<a href="'.$feather->pathFor('adminMaintenance').$query_str.'">'.__('Click here').'</a>')?></p>

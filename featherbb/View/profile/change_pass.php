@@ -18,7 +18,7 @@ if (!isset($feather)) {
 <div class="blockform">
 	<h2><span><?php _e('Change pass') ?></span></h2>
 	<div class="box">
-		<form id="change_pass" method="post" action="<?= $feather->urlFor('profileAction', ['id' => $id, 'action' => 'change_pass']) ?>" onsubmit="return process_form(this)">
+		<form id="change_pass" method="post" action="<?= $feather->pathFor('profileAction', ['id' => $id, 'action' => 'change_pass']) ?>" onsubmit="return process_form(this)">
 			<input type="hidden" name="<?= $csrf_key; ?>" value="<?= $csrf_token; ?>">
 			<div class="inform">
 				<input type="hidden" name="form_sent" value="1" />

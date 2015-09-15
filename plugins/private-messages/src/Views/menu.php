@@ -20,10 +20,10 @@ if (!isset($feather)) {
             <div class="inbox">
                 <ul class="crumbs">
                     <li><a href="<?= Url::base() ?>"><?php _e('Index') ?></a></li>
-                    <li><span>»&#160;</span><a href="<?= $feather->urlFor('Conversations') ?>"><?= _e('PMs', 'private_messages') ?></a></li>
-                    <li><span>»&#160;</span><a href="<?= $feather->urlFor('Conversations', ['id' => $inbox->id]) ?>"><?= Utils::escape($inbox->name) ?></a></li>
+                    <li><span>»&#160;</span><a href="<?= $feather->pathFor('Conversations') ?>"><?= _e('PMs', 'private_messages') ?></a></li>
+                    <li><span>»&#160;</span><a href="<?= $feather->pathFor('Conversations', ['id' => $inbox->id]) ?>"><?= Utils::escape($inbox->name) ?></a></li>
                     <li><span>»&#160;</span><strong><?php _e('My conversations', 'private_messages') ?></strong></li>
-                    <li class="postlink actions conr"><span><a href="<?= $feather->urlFor('newConversation') ?>"><?php _e('Send message', 'private_messages') ?></a></span></li>
+                    <li class="postlink actions conr"><span><a href="<?= $feather->pathFor('newConversation') ?>"><?php _e('Send message', 'private_messages') ?></a></span></li>
                 </ul>
                 <div class="pagepost"></div>
                 <div class="clearer"></div>
@@ -38,9 +38,9 @@ if (!isset($feather)) {
                         <ul>
                             <?php if(!empty($folders)):
                             foreach ($folders as $folder) { ?>
-                                <li class="isactive"><a href="<?= $feather->urlFor('Conversations', ['id' => $folder->id]) ?>"><?= Utils::escape($folder->name) ?> (1)</a></li>
+                                <li class="isactive"><a href="<?= $feather->pathFor('Conversations', ['id' => $folder->id]) ?>"><?= Utils::escape($folder->name) ?> (1)</a></li>
                             <?php } endif; ?>
-                            <li><a href="<?= $feather->urlFor('adminIndex') ?>"><?php _e('Index') ?></a></li>
+                            <li><a href="<?= $feather->pathFor('adminIndex') ?>"><?php _e('Index') ?></a></li>
                         </ul>
                     </div>
                 </div>

@@ -52,7 +52,7 @@ class PrivateMessages extends BasePlugin
 
     public function addNavlink($navlinks)
     {
-        $navlinks[] = '5 = <a href="'.$this->feather->urlFor('Conversations').'">PMS</a>';
+        $navlinks[] = '5 = <a href="'.$this->feather->pathFor('Conversations').'">PMS</a>';
         return $navlinks;
     }
 

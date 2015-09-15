@@ -31,7 +31,7 @@ class Forum
 
         // Is this a redirect forum? In that case, redirect!
         if ($cur_forum['redirect_url'] != '') {
-            Url::redirect($this->feather->urlFor('Forum', ['id' => $cur_forum['redirect_url']]));
+            Url::redirect($this->feather->pathFor('Forum', ['id' => $cur_forum['redirect_url']]));
         }
 
         // Sort out who the moderators are and if we are currently a moderator (or an admin)
@@ -42,7 +42,7 @@ class Forum
 
         // Can we or can we not post new topics?
         if (($cur_forum['post_topics'] == '' && $this->feather->user->g_post_topics == '1') || $cur_forum['post_topics'] == '1' || $is_admmod) {
-            $post_link = "\t\t\t".'<p class="postlink conr"><a href="'.$this->feather->urlFor('newTopic', ['fid' => $fid]).'">'.__('Post topic').'</a></p>'."\n";
+            $post_link = "\t\t\t".'<p class="postlink conr"><a href="'.$this->feather->pathFor('newTopic', ['fid' => $fid]).'">'.__('Post topic').'</a></p>'."\n";
         } else {
             $post_link = '';
         }
@@ -59,13 +59,13 @@ class Forum
 
         $forum_actions = $this->model->get_forum_actions($fid, $this->feather->forum_settings['o_forum_subscriptions'], $cur_forum['is_subscribed']);
 
-        $this->feather->template->addAsset('canonical', $this->feather->urlFor('Forum', ['id' => $fid, 'name' => $url_forum]));
+        $this->feather->template->addAsset('canonical', $this->feather->pathFor('Forum', ['id' => $fid, 'name' => $url_forum]));
         if ($num_pages > 1) {
             if ($p > 1) {
-                $this->feather->template->addAsset('prev', $this->feather->urlFor('ForumPaginate', ['id' => $fid, 'name' => $url_forum, 'page' => intval($p-1)]));
+                $this->feather->template->addAsset('prev', $this->feather->pathFor('ForumPaginate', ['id' => $fid, 'name' => $url_forum, 'page' => intval($p-1)]));
             }
             if ($p < $num_pages) {
-                $this->feather->template->addAsset('next', $this->feather->urlFor('ForumPaginate', ['id' => $fid, 'name' => $url_forum, 'page' => intval($p+1)]));
+                $this->feather->template->addAsset('next', $this->feather->pathFor('ForumPaginate', ['id' => $fid, 'name' => $url_forum, 'page' => intval($p+1)]));
             }
         }
 
@@ -140,19 +140,19 @@ class Forum
         $tracked_topics['forums'][$id] = time();
         Track::set_tracked_topics($tracked_topics);
 
-        Url::redirect($this->feather->urlFor('Forum', ['id' => $id]), __('Mark forum read redirect'));
+        Url::redirect($this->feather->pathFor('Forum', ['id' => $id]), __('Mark forum read redirect'));
     }
 
     public function subscribe($id)
     {
         $this->model->subscribe($id);
-        Url::redirect($this->feather->urlFor('Forum', ['id' => $id]), __('Subscribe redirect'));
+        Url::redirect($this->feather->pathFor('Forum', ['id' => $id]), __('Subscribe redirect'));
     }
 
     public function unsubscribe($id)
     {
         $this->model->unsubscribe($id);
-        Url::redirect($this->feather->urlFor('Forum', ['id' => $id]), __('Unsubscribe redirect'));
+        Url::redirect($this->feather->pathFor('Forum', ['id' => $id]), __('Unsubscribe redirect'));
     }
 
     public function dealposts($fid, $page)
@@ -177,7 +177,7 @@ class Forum
             if ($new_fid = $this->feather->request->post('move_to_forum')) {
                 $topics = explode(',', $topics);
                 $topicModel->move_to($fid, $new_fid, $topics);
-                Url::redirect($this->feather->urlFor('Forum', ['id' => $new_fid]), __('Move topics redirect'));
+                Url::redirect($this->feather->pathFor('Forum', ['id' => $new_fid]), __('Move topics redirect'));
             }
 
             // Check if there are enough forums to move the topic
@@ -200,7 +200,7 @@ class Forum
         elseif ($this->feather->request->post('merge_topics') || $this->feather->request->post('merge_topics_comply')) {
             if ($this->feather->request->post('merge_topics_comply')) {
                 $this->model->merge_topics($fid);
-                Url::redirect($this->feather->urlFor('Forum', array('id' => $fid)), __('Merge topics redirect'));
+                Url::redirect($this->feather->pathFor('Forum', array('id' => $fid)), __('Merge topics redirect'));
             }
 
             $topics = $this->feather->request->post('topics') ? $this->feather->request->post('topics') : array();
@@ -226,7 +226,7 @@ class Forum
 
             if ($this->feather->request->post('delete_topics_comply')) {
                 $this->model->delete_topics($topics, $fid);
-                Url::redirect($this->feather->urlFor('Forum', array('id' => $fid)), __('Delete topics redirect'));
+                Url::redirect($this->feather->pathFor('Forum', array('id' => $fid)), __('Delete topics redirect'));
             }
 
             $this->feather->template->setPageInfo(array(
@@ -253,7 +253,7 @@ class Forum
                 $this->model->close_multiple_topics($action, $topics);
 
                 $redirect_msg = ($action) ? __('Close topics redirect') : __('Open topics redirect');
-                Url::redirect($this->feather->urlFor('moderateForum', array('fid' => $fid, 'page' => $page)), $redirect_msg);
+                Url::redirect($this->feather->pathFor('moderateForum', array('fid' => $fid, 'page' => $page)), $redirect_msg);
             }
         }
     }

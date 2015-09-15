@@ -28,7 +28,7 @@ class Auth
     public function login()
     {
         if (!$this->feather->user->is_guest) {
-            Url::redirect($this->feather->urlFor('home'), 'Already logged in');
+            Url::redirect($this->feather->pathFor('home'), 'Already logged in');
         }
 
         if ($this->feather->request->isPost()) {
@@ -57,10 +57,10 @@ class Auth
                     $expire = $this->feather->hooks->fire('expire_login', $expire);
                     ModelAuth::feather_setcookie($user->id, $form_password_hash, $expire);
 
-                    Url::redirect($this->feather->urlFor('home'), __('Login redirect'));
+                    Url::redirect($this->feather->pathFor('home'), __('Login redirect'));
                 }
             }
-            throw new Error(__('Wrong user/pass').' <a href="'.$this->feather->urlFor('resetPassword').'">'.__('Forgotten pass').'</a>', 403);
+            throw new Error(__('Wrong user/pass').' <a href="'.$this->feather->pathFor('resetPassword').'">'.__('Forgotten pass').'</a>', 403);
         } else {
             $this->feather->template->setPageInfo(array(
                                 'active_page' => 'login',
@@ -77,7 +77,7 @@ class Auth
         $token = $this->feather->hooks->fire('logout_start', $token);
 
         if ($this->feather->user->is_guest || !isset($token) || $token != Random::hash($this->feather->user->id.Random::hash($this->feather->request->getIp()))) {
-            Url::redirect($this->feather->urlFor('home'), 'Not logged in');
+            Url::redirect($this->feather->pathFor('home'), 'Not logged in');
         }
 
         ModelAuth::delete_online_by_id($this->feather->user->id);
@@ -90,13 +90,13 @@ class Auth
         ModelAuth::feather_setcookie(1, Random::hash(uniqid(rand(), true)), time() + 31536000);
         $this->feather->hooks->fire('logout_end');
 
-        Url::redirect($this->feather->urlFor('home'), __('Logout redirect'));
+        Url::redirect($this->feather->pathFor('home'), __('Logout redirect'));
     }
 
     public function forget()
     {
         if (!$this->feather->user->is_guest) {
-            Url::redirect($this->feather->urlFor('home'), 'Already logged in');
+            Url::redirect($this->feather->pathFor('home'), 'Already logged in');
         }
 
         if ($this->feather->request->isPost()) {
@@ -135,13 +135,13 @@ class Auth
 
                 // Do the user specific replacements to the template
                 $cur_mail_message = str_replace('<username>', $user->username, $mail_message);
-                $cur_mail_message = str_replace('<activation_url>', $this->feather->urlFor('profileAction', ['action' => 'change_pass']).'?key='.$new_password_key, $cur_mail_message);
+                $cur_mail_message = str_replace('<activation_url>', $this->feather->pathFor('profileAction', ['action' => 'change_pass']).'?key='.$new_password_key, $cur_mail_message);
                 $cur_mail_message = str_replace('<new_password>', $new_password, $cur_mail_message);
                 $cur_mail_message = $this->feather->hooks->fire('cur_mail_message_password_forgotten', $cur_mail_message);
 
                 $this->feather->email->feather_mail($email, $mail_subject, $cur_mail_message);
 
-                Url::redirect($this->feather->urlFor('home'), __('Forget mail').' <a href="mailto:'.$this->feather->utils->escape($this->feather->forum_settings['o_admin_email']).'">'.$this->feather->utils->escape($this->feather->forum_settings['o_admin_email']).'</a>.', 200);
+                Url::redirect($this->feather->pathFor('home'), __('Forget mail').' <a href="mailto:'.$this->feather->utils->escape($this->feather->forum_settings['o_admin_email']).'">'.$this->feather->utils->escape($this->feather->forum_settings['o_admin_email']).'</a>.', 200);
             } else {
                 throw new Error(__('No email match').' '.Utils::escape($email).'.', 400);
             }

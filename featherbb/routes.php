@@ -101,9 +101,9 @@ $feather->get('/userlist(/)', $canReadBoard, '\FeatherBB\Controller\Userlist:dis
 $feather->group('/auth', function() use ($feather) {
     $feather->get('(/)', function () use ($feather) {
         if (!$feather->user->is_guest) {
-            $feather->url->redirect($feather->urlFor('home'), 'Already logged');
+            $feather->url->redirect($feather->pathFor('home'), 'Already logged');
         } else {
-            $feather->redirect($feather->urlFor('login'));
+            $feather->redirect($feather->pathFor('login'));
         }
     });
     $feather->map('/login(/)', '\FeatherBB\Controller\Auth:login')->via('GET', 'POST')->name('login');
@@ -144,7 +144,7 @@ $feather->group('/admin', $isAdmmod, function() use ($feather) {
      */
     $isAdmin = function() use ($feather) {
         if($feather->user->g_id != $feather->forum_env['FEATHER_ADMIN']) {
-            $feather->url->redirect($feather->urlFor('home'), __('No permission'));
+            $feather->url->redirect($feather->pathFor('home'), __('No permission'));
         }
     };
 

@@ -56,6 +56,6 @@ class Index
         Auth::set_last_visit($this->feather->user->id, $this->feather->user->logged);
         // Reset tracked topics
         Track::set_tracked_topics(null);
-        Url::redirect($this->feather->urlFor('home'), __('Mark read redirect'));
+        Url::redirect($this->feather->pathFor('home'), __('Mark read redirect'));
     }
 }

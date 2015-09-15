@@ -19,7 +19,7 @@ if (!isset($feather)) {
 	<div class="blockform">
 		<h2><span><?php _e('Delete group head') ?></span></h2>
 		<div class="box">
-			<form id="groups" method="post" action="<?= $feather->urlFor('deleteGroup', ['id' => $id]) ?>">
+			<form id="groups" method="post" action="<?= $feather->pathFor('deleteGroup', ['id' => $id]) ?>">
 				<input type="hidden" name="<?= $csrf_key; ?>" value="<?= $csrf_token; ?>">
 				<div class="inform">
 					<fieldset>

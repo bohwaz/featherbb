@@ -92,13 +92,13 @@ class Topic
             'promptQuote' => __('promptQuote')
         );
 
-        $this->feather->template->addAsset('canonical', $this->feather->urlFor('Forum', ['id' => $id, 'name' => $url_forum]));
+        $this->feather->template->addAsset('canonical', $this->feather->pathFor('Forum', ['id' => $id, 'name' => $url_forum]));
         if ($num_pages > 1) {
             if ($p > 1) {
-                $this->feather->template->addAsset('prev', $this->feather->urlFor('ForumPaginate', ['id' => $id, 'name' => $url_forum, 'page' => intval($p-1)]));
+                $this->feather->template->addAsset('prev', $this->feather->pathFor('ForumPaginate', ['id' => $id, 'name' => $url_forum, 'page' => intval($p-1)]));
             }
             if ($p < $num_pages) {
-                $this->feather->template->addAsset('next', $this->feather->urlFor('ForumPaginate', ['id' => $id, 'name' => $url_forum, 'page' => intval($p+1)]));
+                $this->feather->template->addAsset('next', $this->feather->pathFor('ForumPaginate', ['id' => $id, 'name' => $url_forum, 'page' => intval($p+1)]));
             }
         }
 
@@ -156,25 +156,25 @@ class Topic
     public function close($id, $name = '')
     {
         $topic = $this->model->setClosed($id, 1);
-        Url::redirect($this->feather->urlFor('Topic', ['id' => $id, 'name' => Url::url_friendly($topic['subject'])]), __('Close topic redirect'));
+        Url::redirect($this->feather->pathFor('Topic', ['id' => $id, 'name' => Url::url_friendly($topic['subject'])]), __('Close topic redirect'));
     }
 
     public function open($id, $name = '')
     {
         $topic = $this->model->setClosed($id, 0);
-        Url::redirect($this->feather->urlFor('Topic', ['id' => $id, 'name' => Url::url_friendly($topic['subject'])]), __('Open topic redirect'));
+        Url::redirect($this->feather->pathFor('Topic', ['id' => $id, 'name' => Url::url_friendly($topic['subject'])]), __('Open topic redirect'));
     }
 
     public function stick($id, $name = '')
     {
         $topic = $this->model->setSticky($id, 1);
-        Url::redirect($this->feather->urlFor('Topic', ['id' => $id, 'name' => Url::url_friendly($topic['subject'])]), __('Stick topic redirect'));
+        Url::redirect($this->feather->pathFor('Topic', ['id' => $id, 'name' => Url::url_friendly($topic['subject'])]), __('Stick topic redirect'));
     }
 
     public function unstick($id, $name = '')
     {
         $topic = $this->model->setSticky($id, 0);
-        Url::redirect($this->feather->urlFor('Topic', ['id' => $id, 'name' => Url::url_friendly($topic['subject'])]), __('Unstick topic redirect'));
+        Url::redirect($this->feather->pathFor('Topic', ['id' => $id, 'name' => Url::url_friendly($topic['subject'])]), __('Unstick topic redirect'));
     }
 
     // Move a single topic
@@ -182,7 +182,7 @@ class Topic
     {
         if ($new_fid = $this->feather->request->post('move_to_forum')) {
             $this->model->move_to($fid, $new_fid, $tid);
-            Url::redirect($this->feather->urlFor('Topic', array('id' => $tid, 'name' => $name)), __('Move topic redirect'));
+            Url::redirect($this->feather->pathFor('Topic', array('id' => $tid, 'name' => $name)), __('Move topic redirect'));
         }
 
         // Check if there are enough forums to move the topic

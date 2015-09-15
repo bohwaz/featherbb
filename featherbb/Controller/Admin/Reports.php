@@ -33,7 +33,7 @@ class Reports
             $zap_id = intval(key($this->request->post('zap_id')));
             $user_id = $this->user->id;
             $this->model->zap_report($zap_id, $user_id);
-            Url::redirect($this->feather->urlFor('adminReports'), __('Report zapped redirect'));
+            Url::redirect($this->feather->pathFor('adminReports'), __('Report zapped redirect'));
         }
 
         AdminUtils::generateAdminMenu('reports');

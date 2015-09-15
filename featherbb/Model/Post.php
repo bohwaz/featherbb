@@ -398,7 +398,7 @@ class Post
             Topic::delete($tid);
             Forum::update($fid);
 
-            Url::redirect($this->feather->urlFor('Forum', array('id' => $fid)), __('Topic del redirect'));
+            Url::redirect($this->feather->pathFor('Forum', array('id' => $fid)), __('Topic del redirect'));
         } else {
             $this->hook->fire('model.handle_deletion', $tid, $fid, $id);
 
@@ -417,7 +417,7 @@ class Post
 
             $post = $post->find_one();
 
-            Url::redirect($this->feather->urlFor('viewPost', ['pid' => $post['id']]).'#p'.$post['id'], __('Post del redirect'));
+            Url::redirect($this->feather->pathFor('viewPost', ['pid' => $post['id']]).'#p'.$post['id'], __('Post del redirect'));
         }
     }
 
@@ -615,7 +615,7 @@ class Post
                 $mail_subject = str_replace('<forum_id>', $report['forum_id'], $mail_subject);
                 $mail_subject = str_replace('<topic_subject>', $report['subject'], $mail_subject);
                 $mail_message = str_replace('<username>', $this->user->username, $mail_message);
-                $mail_message = str_replace('<post_url>', $this->feather->urlFor('viewPost', ['pid' => $post_id]).'#p'.$post_id, $mail_message);
+                $mail_message = str_replace('<post_url>', $this->feather->pathFor('viewPost', ['pid' => $post_id]).'#p'.$post_id, $mail_message);
                 $mail_message = str_replace('<reason>', $reason, $mail_message);
                 $mail_message = str_replace('<board_mailer>', $this->config['o_board_title'], $mail_message);
 
@@ -631,7 +631,7 @@ class Post
         $last_report_sent = $this->hook->fireDB('insert_last_report_sent', $last_report_sent);
         $last_report_sent = $last_report_sent->save();
 
-        Url::redirect($this->feather->urlFor('viewPost', ['pid' => $post_id]).'#p'.$post_id, __('Report redirect'));
+        Url::redirect($this->feather->pathFor('viewPost', ['pid' => $post_id]).'#p'.$post_id, __('Report redirect'));
     }
 
     public function get_info_report($post_id)
@@ -842,8 +842,8 @@ class Post
                         $mail_subject = str_replace('<topic_subject>', $cur_posting['subject'], $mail_subject);
                         $mail_message = str_replace('<topic_subject>', $cur_posting['subject'], $mail_message);
                         $mail_message = str_replace('<replier>', $post['username'], $mail_message);
-                        $mail_message = str_replace('<post_url>', $this->feather->urlFor('viewPost', ['pid' => $new_pid]).'#p'.$new_pid, $mail_message);
-                        $mail_message = str_replace('<unsubscribe_url>', $this->feather->urlFor('unsubscribeTopic', ['id' => $tid]), $mail_message);
+                        $mail_message = str_replace('<post_url>', $this->feather->pathFor('viewPost', ['pid' => $new_pid]).'#p'.$new_pid, $mail_message);
+                        $mail_message = str_replace('<unsubscribe_url>', $this->feather->pathFor('unsubscribeTopic', ['id' => $tid]), $mail_message);
                         $mail_message = str_replace('<board_mailer>', $this->config['o_board_title'], $mail_message);
                         $mail_message = $this->hook->fire('model.send_notifications_reply_mail_message', $mail_message);
 
@@ -851,8 +851,8 @@ class Post
                         $mail_message_full = str_replace('<topic_subject>', $cur_posting['subject'], $mail_message_full);
                         $mail_message_full = str_replace('<replier>', $post['username'], $mail_message_full);
                         $mail_message_full = str_replace('<message>', $cleaned_message, $mail_message_full);
-                        $mail_message_full = str_replace('<post_url>', $this->feather->urlFor('viewPost', ['pid' => $new_pid]).'#p'.$new_pid, $mail_message_full);
-                        $mail_message_full = str_replace('<unsubscribe_url>', $this->feather->urlFor('unsubscribeTopic', ['id' => $tid]), $mail_message_full);
+                        $mail_message_full = str_replace('<post_url>', $this->feather->pathFor('viewPost', ['pid' => $new_pid]).'#p'.$new_pid, $mail_message_full);
+                        $mail_message_full = str_replace('<unsubscribe_url>', $this->feather->pathFor('unsubscribeTopic', ['id' => $tid]), $mail_message_full);
                         $mail_message_full = str_replace('<board_mailer>', $this->config['o_board_title'], $mail_message_full);
                         $mail_message_full = $this->hook->fire('model.send_notifications_reply_mail_message_full', $mail_message_full);
 
@@ -1050,8 +1050,8 @@ class Post
                         $mail_message = str_replace('<topic_subject>', $this->config['o_censoring'] == '1' ? $censored_subject : $post['subject'], $mail_message);
                         $mail_message = str_replace('<forum_name>', $cur_posting['forum_name'], $mail_message);
                         $mail_message = str_replace('<poster>', $post['username'], $mail_message);
-                        $mail_message = str_replace('<topic_url>', $this->feather->urlFor('Topic', ['id' => $new_tid]), $mail_message);
-                        $mail_message = str_replace('<unsubscribe_url>', $this->feather->urlFor('unsubscribeTopic', ['id' => $cur_posting['id']]), $mail_message);
+                        $mail_message = str_replace('<topic_url>', $this->feather->pathFor('Topic', ['id' => $new_tid]), $mail_message);
+                        $mail_message = str_replace('<unsubscribe_url>', $this->feather->pathFor('unsubscribeTopic', ['id' => $cur_posting['id']]), $mail_message);
                         $mail_message = str_replace('<board_mailer>', $this->config['o_board_title'], $mail_message);
                         $mail_message = $this->hook->fire('model.send_notifications_new_topic_mail_message', $mail_message);
 
@@ -1060,8 +1060,8 @@ class Post
                         $mail_message_full = str_replace('<forum_name>', $cur_posting['forum_name'], $mail_message_full);
                         $mail_message_full = str_replace('<poster>', $post['username'], $mail_message_full);
                         $mail_message_full = str_replace('<message>', $cleaned_message, $mail_message_full);
-                        $mail_message_full = str_replace('<topic_url>', $this->feather->urlFor('Topic', ['id' => $new_tid]), $mail_message_full);
-                        $mail_message_full = str_replace('<unsubscribe_url>', $this->feather->urlFor('unsubscribeTopic', ['id' => $tid]), $mail_message_full);
+                        $mail_message_full = str_replace('<topic_url>', $this->feather->pathFor('Topic', ['id' => $new_tid]), $mail_message_full);
+                        $mail_message_full = str_replace('<unsubscribe_url>', $this->feather->pathFor('unsubscribeTopic', ['id' => $tid]), $mail_message_full);
                         $mail_message_full = str_replace('<board_mailer>', $this->config['o_board_title'], $mail_message_full);
                         $mail_message_full = $this->hook->fire('model.send_notifications_new_topic_mail_message_full', $mail_message_full);
 
@@ -1104,7 +1104,7 @@ class Post
 
         $mail_message = str_replace('<username>', $post['username'], $mail_message);
         $mail_message = str_replace('<email>', $post['email'], $mail_message);
-        $mail_message = str_replace('<post_url>', $this->feather->urlFor('viewPost', ['pid' => $new_pid]).'#p'.$new_pid, $mail_message);
+        $mail_message = str_replace('<post_url>', $this->feather->pathFor('viewPost', ['pid' => $new_pid]).'#p'.$new_pid, $mail_message);
         $mail_message = str_replace('<board_mailer>', $this->config['o_board_title'], $mail_message);
         $mail_message = $this->hook->fire('model.warn_banned_user_mail_message', $mail_message);
 
@@ -1377,6 +1377,6 @@ class Post
 
         $ip = $this->hook->fire('model.display_ip_address_post', $ip);
 
-        throw new Error(sprintf(__('Host info 1'), $ip).'<br />'.sprintf(__('Host info 2'), @gethostbyaddr($ip)).'<br /><br /><a href="'.$this->feather->urlFor('usersIpShow', ['ip' => $ip]).'">'.__('Show more users').'</a>');
+        throw new Error(sprintf(__('Host info 1'), $ip).'<br />'.sprintf(__('Host info 2'), @gethostbyaddr($ip)).'<br /><br /><a href="'.$this->feather->pathFor('usersIpShow', ['ip' => $ip]).'">'.__('Show more users').'</a>');
     }
 }

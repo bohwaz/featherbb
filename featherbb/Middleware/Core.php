@@ -17,7 +17,7 @@ use DB;
 use FeatherBB\Core\Utils;
 use FeatherBB\Core\Plugin as PluginManager;
 
-class Core extends \Slim\Middleware
+class Core
 {
     protected $forum_env,
               $forum_settings;

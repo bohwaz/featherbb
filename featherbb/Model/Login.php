@@ -54,7 +54,7 @@ class Login
         $authorized = $this->hook->fire('model.authorized_login', $authorized);
 
         if (!$authorized) {
-            throw new Error(__('Wrong user/pass').' <a href="'.$this->feather->urlFor('resetPassword').'">'.__('Forgotten pass').'</a>', 403);
+            throw new Error(__('Wrong user/pass').' <a href="'.$this->feather->pathFor('resetPassword').'">'.__('Forgotten pass').'</a>', 403);
         }
 
         // Update the status if this is the first time the user logged in
@@ -97,7 +97,7 @@ class Login
         $token = $this->hook->fire('model.logout_start', $token, $id);
 
         if ($this->user->is_guest || !isset($id) || $id != $this->user->id || !isset($token) || $token != Random::hash($this->user->id.Random::hash($this->request->getIp()))) {
-            Url::redirect($this->feather->urlFor('home'));
+            Url::redirect($this->feather->pathFor('home'));
         }
 
         // Remove user from "users online" list
@@ -118,7 +118,7 @@ class Login
 
         $this->auth->feather_setcookie(1, Random::hash(uniqid(rand(), true)), time() + 31536000);
 
-        Url::redirect($this->feather->urlFor('home'), __('Logout redirect'));
+        Url::redirect($this->feather->pathFor('home'), __('Logout redirect'));
     }
 
     public function password_forgotten()
@@ -126,7 +126,7 @@ class Login
         $this->hook->fire('model.password_forgotten_start');
 
         if (!$this->user->is_guest) {
-            Url::redirect($this->feather->urlFor('home'));
+            Url::redirect($this->feather->pathFor('home'));
         }
         // Start with a clean slate
         $errors = array();
@@ -189,7 +189,7 @@ class Login
 
                         // Do the user specific replacements to the template
                         $cur_mail_message = str_replace('<username>', $cur_hit->username, $mail_message);
-                        $cur_mail_message = str_replace('<activation_url>', $this->feather->urlFor('profileAction', ['id' => $cur_hit->id, 'action' => 'change_pass']).'?key='.$new_password_key, $cur_mail_message);
+                        $cur_mail_message = str_replace('<activation_url>', $this->feather->pathFor('profileAction', ['id' => $cur_hit->id, 'action' => 'change_pass']).'?key='.$new_password_key, $cur_mail_message);
                         $cur_mail_message = str_replace('<new_password>', $new_password, $cur_mail_message);
                         $cur_mail_message = $this->hook->fire('model.cur_mail_message_password_forgotten', $cur_mail_message);
 
@@ -239,7 +239,7 @@ class Login
         }
 
         if (!isset($redirect_url)) {
-            $redirect_url = $this->feather->urlFor('userProfile', ['id' => $recipient_id]);
+            $redirect_url = $this->feather->pathFor('userProfile', ['id' => $recipient_id]);
         } elseif (preg_match('%Topic\.php\?pid=(\d+)$%', $redirect_url, $matches)) {
             $redirect_url .= '#p'.$matches[1];
         }

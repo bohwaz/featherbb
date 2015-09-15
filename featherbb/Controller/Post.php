@@ -128,7 +128,7 @@ class Post
                             $this->model->increment_post_count($post, $new['tid']);
                         }
 
-                    Url::redirect($this->feather->urlFor('viewPost', ['pid' => $new['pid']]).'#p'.$new['pid'], __('Post redirect'));
+                    Url::redirect($this->feather->pathFor('viewPost', ['pid' => $new['pid']]).'#p'.$new['pid'], __('Post redirect'));
                 }
         }
 
@@ -137,18 +137,18 @@ class Post
         // If a topic ID was specified in the url (it's a reply)
         if ($tid) {
             $action = __('Post a reply');
-            $form = '<form id="post" method="post" action="'.$this->feather->urlFor('newReply', ['tid' => $tid]).'" onsubmit="this.submit.disabled=true;if(process_form(this)){return true;}else{this.submit.disabled=false;return false;}">';
+            $form = '<form id="post" method="post" action="'.$this->feather->pathFor('newReply', ['tid' => $tid]).'" onsubmit="this.submit.disabled=true;if(process_form(this)){return true;}else{this.submit.disabled=false;return false;}">';
 
                 // If a quote ID was specified in the url
                 if (isset($qid)) {
                     $quote = $this->model->get_quote_message($qid, $tid);
-                    $form = '<form id="post" method="post" action="'.$this->feather->urlFor('newQuoteReply', ['pid' => $tid, 'qid' => $qid]).'" onsubmit="this.submit.disabled=true;if(process_form(this)){return true;}else{this.submit.disabled=false;return false;}">';
+                    $form = '<form id="post" method="post" action="'.$this->feather->pathFor('newQuoteReply', ['pid' => $tid, 'qid' => $qid]).'" onsubmit="this.submit.disabled=true;if(process_form(this)){return true;}else{this.submit.disabled=false;return false;}">';
                 }
         }
         // If a forum ID was specified in the url (new topic)
         elseif ($fid) {
             $action = __('Post new topic');
-            $form = '<form id="post" method="post" action="'.$this->feather->urlFor('newTopic', ['fid' => $fid]).'" onsubmit="return process_form(this)">';
+            $form = '<form id="post" method="post" action="'.$this->feather->pathFor('newTopic', ['fid' => $fid]).'" onsubmit="return process_form(this)">';
         } else {
             throw new Error(__('Bad request'), 404);
         }
@@ -319,7 +319,7 @@ class Post
                 // Edit the post
                 $this->model->edit_post($id, $can_edit_subject, $post, $cur_post, $is_admmod);
 
-                Url::redirect($this->feather->urlFor('viewPost', ['pid' => $id]).'#p'.$id, __('Post redirect'));
+                Url::redirect($this->feather->pathFor('viewPost', ['pid' => $id]).'#p'.$id, __('Post redirect'));
             }
         } else {
             $post = '';

@@ -32,13 +32,13 @@ class Categories
     {
         $cat_name = Utils::trim($this->request->post('cat_name'));
         if ($cat_name == '') {
-            Url::redirect($this->feather->urlFor('adminCategories'), __('Must enter name message'));
+            Url::redirect($this->feather->pathFor('adminCategories'), __('Must enter name message'));
         }
 
         if ($this->model->add_category($cat_name)) {
-            Url::redirect($this->feather->urlFor('adminCategories'), __('Category added redirect'));
+            Url::redirect($this->feather->pathFor('adminCategories'), __('Category added redirect'));
         } else { //TODO, add error message
-            Url::redirect($this->feather->urlFor('adminCategories'), __('Category added redirect'));
+            Url::redirect($this->feather->pathFor('adminCategories'), __('Category added redirect'));
         }
     }
 
@@ -53,7 +53,7 @@ class Categories
                               'name' => Utils::escape($properties['name']),
                               'order' => (int) $properties['order'], );
             if ($category['name'] == '') {
-                Url::redirect($this->feather->urlFor('adminCategories'), __('Must enter name message'));
+                Url::redirect($this->feather->pathFor('adminCategories'), __('Must enter name message'));
             }
             $this->model->update_category($category);
         }
@@ -61,7 +61,7 @@ class Categories
         // Regenerate the quick jump cache
         $this->feather->cache->store('quickjump', Cache::get_quickjump());
 
-        Url::redirect($this->feather->urlFor('adminCategories'), __('Categories updated redirect'));
+        Url::redirect($this->feather->pathFor('adminCategories'), __('Categories updated redirect'));
 
     }
 
@@ -74,13 +74,13 @@ class Categories
         }
 
         if (intval($this->request->post('disclaimer')) != 1) {
-            Url::redirect($this->feather->urlFor('adminCategories'), __('Delete category not validated'));
+            Url::redirect($this->feather->pathFor('adminCategories'), __('Delete category not validated'));
         }
 
         if ($this->model->delete_category($cat_to_delete)) {
-            Url::redirect($this->feather->urlFor('adminCategories'), __('Category deleted redirect'));
+            Url::redirect($this->feather->pathFor('adminCategories'), __('Category deleted redirect'));
         } else {
-            Url::redirect($this->feather->urlFor('adminCategories'), __('Unable to delete category'));
+            Url::redirect($this->feather->pathFor('adminCategories'), __('Unable to delete category'));
         }
     }
 

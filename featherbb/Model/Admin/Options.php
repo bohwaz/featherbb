@@ -234,7 +234,7 @@ class Options
         $this->feather->cache->store('config', Cache::get_config());
         $this->clear_feed_cache();
 
-        Url::redirect($this->feather->urlFor('adminOptions'), __('Options updated redirect'));
+        Url::redirect($this->feather->pathFor('adminOptions'), __('Options updated redirect'));
     }
 
     public function clear_feed_cache()

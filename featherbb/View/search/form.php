@@ -16,7 +16,7 @@ if (!isset($feather)) {
 <div id="searchform" class="blockform">
 	<h2><span><?php _e('Search') ?></span></h2>
 	<div class="box">
-		<form id="search" method="get" action="<?= $feather->urlFor('search') ?>">
+		<form id="search" method="get" action="<?= $feather->pathFor('search') ?>">
 			<div class="inform">
 				<fieldset>
 					<legend><?php _e('Search criteria legend') ?></legend>
