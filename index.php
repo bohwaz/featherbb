@@ -17,7 +17,7 @@ ini_set('display_errors', 1);
 require 'vendor/autoload.php';
 
 // Instantiate Slim and add CSRF
-$feather = new \Slim\Slim();
+$feather = new \Slim\App();
 $feather->add(new \FeatherBB\Middleware\Csrf());
 
 $feather_settings = array('config_file' => 'featherbb/config.php',
