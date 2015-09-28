@@ -272,6 +272,9 @@ class Auth extends \Slim\Middleware
             $this->model->feather_setcookie(1, Random::hash(uniqid(rand(), true)), $this->app->now + 31536000);
         }
 
+        // Load permissions for user
+        $this->app->perms->getUserPermissions($this->app->user);
+
         load_textdomain('featherbb', $this->app->forum_env['FEATHER_ROOT'].'featherbb/lang/'.$this->app->user->language.'/common.mo');
 
         // Load bans from cache
