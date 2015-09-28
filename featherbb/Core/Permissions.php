@@ -258,16 +258,7 @@ class Permissions
         return $this->permissions;
     }
 
-    protected function buildRegex($uid = null, $gid = null)
-    {
-        $perms = array_map(function ($value) {
-            $value = str_replace('.', '\.', $value);
-            return str_replace('*', '.*', $value);
-        }, array_keys($this->permissions[$gid][$uid]));
-        $this->regexs[$gid][$uid] = '/^(?:'.implode(' | ', $perms).')$/';
-    }
-
-    protected function getUserPermissions($user = null)
+    public function getUserPermissions($user = null)
     {
         list($uid, $gid) = $this->getInfosFromUser($user);
 
@@ -304,6 +295,15 @@ class Permissions
 
         $this->buildRegex($uid, $gid);
         return $this->permissions;
+    }
+
+    protected function buildRegex($uid = null, $gid = null)
+    {
+        $perms = array_map(function ($value) {
+            $value = str_replace('.', '\.', $value);
+            return str_replace('*', '.*', $value);
+        }, array_keys($this->permissions[$gid][$uid]));
+        $this->regexs[$gid][$uid] = '/^(?:'.implode('|', $perms).')$/';
     }
 
     protected function getInfosFromUser($user = null)
