@@ -17,15 +17,10 @@ class AdminUtils
     {
         self::$feather = \Slim\Slim::getInstance();
 
-        $is_admin = (self::$feather->user->g_id == self::$feather->forum_env['FEATHER_ADMIN']) ? true : false;
-
-        // See if there are any plugins that want to display in the menu
-        $plugins = self::adminPluginsMenu($is_admin);
-
         self::$feather->template->setPageInfo(array(
             'page'    =>    $page,
-            'is_admin'    =>    $is_admin,
-            'plugins'    =>    $plugins,
+            'menu_items' => self::$feather->hooks->fire('admin.menu', self::load_default_menu()),
+            'plugins'    =>    self::adminPluginsMenu(true),
             ), 1
         )->addTemplate('admin/menu.php');
     }
@@ -72,5 +67,35 @@ class AdminUtils
         }
 
         return self::$feather->cache->retrieve('admin_ids');
+    }
+
+    protected static function load_default_menu()
+    {
+        return array(
+            'mod.users' => array('title' => 'Users',
+                                 'url' => 'adminUsers'),
+            'mod.bans' => array('title' => 'Bans',
+                                'url' => 'adminBans'),
+            'mod.reports' => array('title' => 'Reports',
+                                   'url' => 'adminReports'),
+            'board.options' => array('title' => 'Options',
+                                     'url' => 'adminOptions'),
+            'board.permissions' => array('title' => 'Permissions',
+                                         'url' => 'adminPermissions'),
+            'board.categories' => array('title' => 'Categories',
+                                        'url' => 'adminCategories'),
+            'board.forums' => array('title' => 'Forums',
+                                    'url' => 'adminForums'),
+            'board.groups' => array('title' => 'User groups',
+                                    'url' => 'adminGroups'),
+            'board.plugins' => array('title' => 'Plugins',
+                                     'url' => 'adminPlugins'),
+            'board.censoring' => array('title' => 'Censoring',
+                                       'url' => 'adminCensoring'),
+            'board.parser' => array('title' => 'Parser',
+                                    'url' => 'adminParser'),
+            'board.maintenance' => array('title' => 'Maintenance',
+                                         'url' => 'adminMaintenance'),
+         );
     }
 }
