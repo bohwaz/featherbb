@@ -23,10 +23,6 @@ class Forums
         $this->hook = $this->feather->hooks;
     }
 
-    //
-    // Forum
-    //
-
     public function add_forum($cat_id, $forum_name)
     {
         $set_add_forum = array('forum_name' => $forum_name,
@@ -142,9 +138,6 @@ class Forums
                 ->save();
     }
 
-    //
-    // Permissions
-    //
 
     public function get_permissions($forum_id)
     {

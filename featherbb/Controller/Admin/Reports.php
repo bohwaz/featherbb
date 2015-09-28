@@ -24,6 +24,10 @@ class Reports
         $this->request = $this->feather->request;
         $this->model = new \FeatherBB\Model\Admin\Reports();
         load_textdomain('featherbb', $this->feather->forum_env['FEATHER_ROOT'].'featherbb/lang/'.$this->user->language.'/admin/reports.mo');
+        if (!$this->feather->perms->can($this->feather->user, 'mod.reports')) {
+            throw new Error(__('No permission'), 403);
+        }
+
     }
 
     public function display()

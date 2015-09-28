@@ -24,6 +24,9 @@ class Groups
         $this->request = $this->feather->request;
         $this->model = new \FeatherBB\Model\Admin\Groups();
         load_textdomain('featherbb', $this->feather->forum_env['FEATHER_ROOT'].'featherbb/lang/'.$this->user->language.'/admin/groups.mo');
+        if (!$this->feather->perms->can($this->feather->user, 'board.groups')) {
+            throw new Error(__('No permission'), 403);
+        }
     }
 
     public function display()

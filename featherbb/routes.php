@@ -36,6 +36,15 @@ $isAdmmod = function() use ($feather) {
     }
 };
 
+/**
+ * Middleware to check if user is admin.
+ */
+$isAdmin = function() use ($feather) {
+    if($feather->user->g_id != $feather->forum_env['FEATHER_ADMIN']) {
+        $feather->url->redirect($feather->urlFor('home'), __('No permission'));
+    }
+};
+
 // Index
 $feather->get('/', $canReadBoard, '\FeatherBB\Controller\Index:display')->name('home');
 $feather->get('/rules(/)', '\FeatherBB\Controller\Index:rules')->name('rules');
@@ -137,17 +146,7 @@ $feather->group('/user', $isGuest, function() use ($feather) {
 });
 
 // Admin routes
-$feather->group('/admin', $isAdmmod, function() use ($feather) {
-
-    /**
-     * Middleware to check if user is admin.
-     */
-    $isAdmin = function() use ($feather) {
-        if($feather->user->g_id != $feather->forum_env['FEATHER_ADMIN']) {
-            $feather->url->redirect($feather->urlFor('home'), __('No permission'));
-        }
-    };
-
+$feather->group('/admin', function() use ($feather) {
     // Admin index
     $feather->get('(/action/:action)(/)', '\FeatherBB\Controller\Admin\Index:display')->name('adminAction');
     $feather->get('/index(/)', '\FeatherBB\Controller\Admin\Index:display')->name('adminIndex');
@@ -161,10 +160,10 @@ $feather->group('/admin', $isAdmmod, function() use ($feather) {
     });
 
     // Admin options
-    $feather->map('/options(/)', $isAdmin, '\FeatherBB\Controller\Admin\Options:display')->via('GET', 'POST')->name('adminOptions');
+    $feather->map('/options(/)', '\FeatherBB\Controller\Admin\Options:display')->via('GET', 'POST')->name('adminOptions');
 
     // Admin categories
-    $feather->group('/categories', $isAdmin, function() use ($feather) {
+    $feather->group('/categories', function() use ($feather) {
         $feather->get('(/)', '\FeatherBB\Controller\Admin\Categories:display')->name('adminCategories');
         $feather->post('/add(/)', '\FeatherBB\Controller\Admin\Categories:add')->name('addCategory');
         $feather->post('/edit(/)', '\FeatherBB\Controller\Admin\Categories:edit')->name('editCategory');
@@ -172,20 +171,20 @@ $feather->group('/admin', $isAdmmod, function() use ($feather) {
     });
 
     // Admin censoring
-    $feather->map('/censoring(/)', $isAdmin, '\FeatherBB\Controller\Admin\Censoring:display')->via('GET', 'POST')->name('adminCensoring');
+    $feather->map('/censoring(/)', '\FeatherBB\Controller\Admin\Censoring:display')->via('GET', 'POST')->name('adminCensoring');
 
     // Admin reports
     $feather->map('/reports(/)', '\FeatherBB\Controller\Admin\Reports:display')->via('GET', 'POST')->name('adminReports');
 
     // Admin permissions
-    $feather->map('/permissions(/)', $isAdmin, '\FeatherBB\Controller\Admin\Permissions:display')->via('GET', 'POST')->name('adminPermissions');
+    $feather->map('/permissions(/)', '\FeatherBB\Controller\Admin\Permissions:display')->via('GET', 'POST')->name('adminPermissions');
 
     // Admin statistics
     $feather->get('/statistics(/)', '\FeatherBB\Controller\Admin\Statistics:display')->name('statistics');
     $feather->get('/phpinfo(/)', '\FeatherBB\Controller\Admin\Statistics:phpinfo')->name('phpInfo');
 
     // Admin forums
-    $feather->group('/forums', $isAdmin, function() use ($feather) {
+    $feather->group('/forums', function() use ($feather) {
         $feather->map('(/)', '\FeatherBB\Controller\Admin\Forums:display')->via('GET', 'POST')->name('adminForums');
         $feather->post('/add(/)', '\FeatherBB\Controller\Admin\Forums:add')->name('addForum');
         $feather->map('/edit/:id(/)', '\FeatherBB\Controller\Admin\Forums:edit')->conditions(array('id' => '[0-9]+'))->via('GET', 'POST')->name('editForum');
@@ -193,7 +192,7 @@ $feather->group('/admin', $isAdmmod, function() use ($feather) {
     });
 
     // Admin groups
-    $feather->group('/groups', $isAdmin, function() use ($feather) {
+    $feather->group('/groups', function() use ($feather) {
         $feather->map('(/)', '\FeatherBB\Controller\Admin\Groups:display')->via('GET', 'POST')->name('adminGroups');
         $feather->map('/add(/)', '\FeatherBB\Controller\Admin\Groups:addedit')->via('GET', 'POST')->name('addGroup');
         $feather->map('/edit/:id(/)', '\FeatherBB\Controller\Admin\Groups:addedit')->conditions(array('id' => '[0-9]+'))->via('GET', 'POST')->name('editGroup');
@@ -210,10 +209,10 @@ $feather->group('/admin', $isAdmmod, function() use ($feather) {
     });
 
     // Admin maintenance
-    $feather->map('/maintenance(/)', $isAdmin, '\FeatherBB\Controller\Admin\Maintenance:display')->via('GET', 'POST')->name('adminMaintenance');
+    $feather->map('/maintenance(/)', '\FeatherBB\Controller\Admin\Maintenance:display')->via('GET', 'POST')->name('adminMaintenance');
 
     // Admin parser
-    $feather->map('/parser(/)', $isAdmin, '\FeatherBB\Controller\Admin\Parser:display')->via('GET', 'POST')->name('adminParser');
+    $feather->map('/parser(/)', '\FeatherBB\Controller\Admin\Parser:display')->via('GET', 'POST')->name('adminParser');
 
     // Admin users
     $feather->group('/users', function() use ($feather) {

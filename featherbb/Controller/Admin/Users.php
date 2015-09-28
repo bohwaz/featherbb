@@ -25,20 +25,20 @@ class Users
         $this->request = $this->feather->request;
         $this->model = new \FeatherBB\Model\Admin\Users();
         load_textdomain('featherbb', $this->feather->forum_env['FEATHER_ROOT'].'featherbb/lang/'.$this->user->language.'/admin/users.mo');
+
+        if (!$this->feather->perms->can($this->feather->user, 'mod.users')) {
+            throw new Error(__('No permission'), 403);
+        }
     }
 
     public function display()
     {
         $this->feather->hooks->fire('controller.admin.users.display');
 
+        AdminUtils::generateAdminMenu('users');
+
         // Move multiple users to other user groups
         if ($this->request->post('move_users') || $this->request->post('move_users_comply')) {
-            if ($this->user->g_id > $this->feather->forum_env['FEATHER_ADMIN']) {
-                throw new Error(__('No permission'), 403);
-            }
-
-            AdminUtils::generateAdminMenu('users');
-
             $this->feather->template->setPageInfo(array(
                     'title' => array(Utils::escape($this->config['o_board_title']), __('Admin'), __('Users'), __('Move users')),
                     'active_page' => 'moderate',
@@ -48,15 +48,8 @@ class Users
             )->addTemplate('admin/users/move_users.php')->display();
         }
 
-
         // Delete multiple users
         if ($this->request->post('delete_users') || $this->request->post('delete_users_comply')) {
-            if ($this->user->g_id > $this->feather->forum_env['FEATHER_ADMIN']) {
-                throw new Error(__('No permission'), 403);
-            }
-
-            AdminUtils::generateAdminMenu('users');
-
             $this->feather->template->setPageInfo(array(
                     'title' => array(Utils::escape($this->config['o_board_title']), __('Admin'), __('Users'), __('Delete users')),
                     'active_page' => 'moderate',
@@ -66,14 +59,11 @@ class Users
             )->addTemplate('admin/users/delete_users.php')->display();
         }
 
-
         // Ban multiple users
         if ($this->request->post('ban_users') || $this->request->post('ban_users_comply')) {
-            if ($this->user->g_id != $this->feather->forum_env['FEATHER_ADMIN'] && ($this->user->g_moderator != '1' || $this->user->g_mod_ban_users == '0')) {
+            if (!$this->feather->perms->can($this->feather->user, 'mod.bans')) {
                 throw new Error(__('No permission'), 403);
             }
-
-            AdminUtils::generateAdminMenu('users');
 
             $this->feather->template->setPageInfo(array(
                     'title' => array(Utils::escape($this->config['o_board_title']), __('Admin'), __('Users'), __('Bans')),
@@ -125,8 +115,6 @@ class Users
             )->addTemplate('admin/users/find_users.php')->display();
         }
         else {
-            AdminUtils::generateAdminMenu('users');
-
             $this->feather->template->setPageInfo(array(
                     'title' => array(Utils::escape($this->config['o_board_title']), __('Admin'), __('Users')),
                     'active_page' => 'admin',

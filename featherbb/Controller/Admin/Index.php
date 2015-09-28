@@ -24,6 +24,9 @@ class Index
         $this->user = $this->feather->user;
         $this->request = $this->feather->request;
         load_textdomain('featherbb', $this->feather->forum_env['FEATHER_ROOT'].'featherbb/lang/'.$this->user->language.'/admin/index.mo');
+        if (!$this->feather->perms->can($this->feather->user, 'mod.view')) {
+            throw new Error(__('No permission'), 403);
+        }
     }
 
     public function display($action = null)

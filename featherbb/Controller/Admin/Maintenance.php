@@ -19,6 +19,10 @@ class Maintenance
         $this->feather = \Slim\Slim::getInstance();
         $this->model = new \FeatherBB\Model\Admin\Maintenance();
         load_textdomain('featherbb', $this->feather->forum_env['FEATHER_ROOT'].'featherbb/lang/'.$this->feather->user->language.'/admin/maintenance.mo');
+        if (!$this->feather->perms->can($this->feather->user, 'board.maintenance')) {
+            throw new Error(__('No permission'), 403);
+        }
+
     }
 
     public function display()

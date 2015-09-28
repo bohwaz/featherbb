@@ -24,6 +24,10 @@ class Plugins
         $this->user = $this->feather->user;
         $this->model = new \FeatherBB\Model\Admin\Plugins();
         load_textdomain('featherbb', $this->feather->forum_env['FEATHER_ROOT'].'featherbb/lang/'.$this->user->language.'/admin/plugins.mo');
+        if (!$this->feather->perms->can($this->feather->user, 'board.plugins')) {
+            throw new Error(__('No permission'), 403);
+        }
+
     }
 
     public function index()
@@ -32,17 +36,14 @@ class Plugins
 
         $this->feather->template->addAsset('js', 'style/imports/common.js', array('type' => 'text/javascript'));
 
-        $availablePlugins = Lister::getPlugins();
         $activePlugins = $this->feather->cache->isCached('activePlugins') ? $this->feather->cache->retrieve('activePlugins') : array();
-        // var_dump($availablePlugins, $activePlugins);
-        // $this->feather->cache->delete('activePlugins');
 
         AdminUtils::generateAdminMenu('plugins');
 
         $this->feather->template->setPageInfo(array(
             'admin_console' => true,
             'active_page' => 'admin',
-            'availablePlugins'    =>    $availablePlugins,
+            'availablePlugins'    =>    Lister::getPlugins(),
             'activePlugins'    =>    $activePlugins,
             'title' => array(Utils::escape($this->config['o_board_title']), __('Admin'), __('Extension')),
             )
