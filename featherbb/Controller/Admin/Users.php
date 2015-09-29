@@ -95,7 +95,7 @@ class Users
 
             // Some helper variables for permissions
             $can_delete = $can_move = $this->user->g_id == $this->feather->forum_env['FEATHER_ADMIN'];
-            $can_ban = $this->user->g_id == $this->feather->forum_env['FEATHER_ADMIN'] || ($this->user->g_moderator == '1' && $this->user->g_mod_ban_users == '1');
+            $can_ban = $this->user->g_id == $this->feather->forum_env['FEATHER_ADMIN'] || ($this->feather->prefs->get($this->feather->user, 'is_mod') == '1' && $this->user->g_mod_ban_users == '1');
             $can_action = ($can_delete || $can_ban || $can_move) && $num_users > 0;
             $this->feather->template->addAsset('js', 'style/imports/common.js', array('type' => 'text/javascript'));
 

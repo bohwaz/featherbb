@@ -38,7 +38,7 @@ class Topic
 
         // Sort out who the moderators are and if we are currently a moderator (or an admin)
         $mods_array = ($cur_topic['moderators'] != '') ? unserialize($cur_topic['moderators']) : array();
-        $is_admmod = ($this->feather->user->g_id == $this->feather->forum_env['FEATHER_ADMIN'] || ($this->feather->user->g_moderator == '1' && array_key_exists($this->feather->user->username, $mods_array))) ? true : false;
+        $is_admmod = ($this->feather->user->g_id == $this->feather->forum_env['FEATHER_ADMIN'] || ($this->feather->prefs->get($this->feather->user, 'is_mod') == '1' && array_key_exists($this->feather->user->username, $mods_array))) ? true : false;
 
         // Can we or can we not post replies?
         $post_link = $this->model->get_post_link($id, $cur_topic['closed'], $cur_topic['post_replies'], $is_admmod);
@@ -201,7 +201,7 @@ class Topic
         $moderators = $forumModel->get_moderators($id);
         $mods_array = ($moderators != '') ? unserialize($moderators) : array();
 
-        if ($this->feather->user->g_id != $this->feather->forum_env['FEATHER_ADMIN'] && ($this->feather->user->g_moderator == '0' || !array_key_exists($this->feather->user->username, $mods_array))) {
+        if ($this->feather->user->g_id != $this->feather->forum_env['FEATHER_ADMIN'] && ($this->feather->prefs->get($this->feather->user, 'is_mod') == '0' || !array_key_exists($this->feather->user->username, $mods_array))) {
             throw new Error(__('No permission'), 403);
         }
 

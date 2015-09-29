@@ -54,7 +54,7 @@ class Profile
 
             $this->model->update_mod_forums($id);
         } elseif ($this->request->post('ban')) {
-            if ($this->user->g_id != $this->feather->forum_env['FEATHER_ADMIN'] && ($this->user->g_moderator != '1' || $this->user->g_mod_ban_users == '0')) {
+            if ($this->user->g_id != $this->feather->forum_env['FEATHER_ADMIN'] && ($this->feather->prefs->get($this->feather->user, 'is_mod') != '1' || $this->user->g_mod_ban_users == '0')) {
                 throw new Error(__('No permission'), 403);
             }
 
@@ -221,7 +221,7 @@ class Profile
 
             } elseif ($section == 'admin') {
 
-                if (!$this->user->is_admmod || ($this->user->g_moderator == '1' && $this->user->g_mod_ban_users == '0')) {
+                if (!$this->user->is_admmod || ($this->feather->prefs->get($this->feather->user, 'is_mod') == '1' && $this->user->g_mod_ban_users == '0')) {
                     throw new Error(__('Bad request'), 404);
                 }
 
@@ -317,7 +317,7 @@ class Profile
 
             Url::redirect($this->feather->urlFor('profileSection', array('id' => $id, 'section' => 'personality')), __('Avatar deleted redirect'));
         } elseif ($action == 'promote') {
-            if ($this->user->g_id != $this->feather->forum_env['FEATHER_ADMIN'] && ($this->user->g_moderator != '1' || $this->user->g_mod_promote_users == '0')) {
+            if ($this->user->g_id != $this->feather->forum_env['FEATHER_ADMIN'] && ($this->feather->prefs->get($this->feather->user, 'is_mod') != '1' || $this->user->g_mod_promote_users == '0')) {
                 throw new Error(__('No permission'), 403);
             }
 

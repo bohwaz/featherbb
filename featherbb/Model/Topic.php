@@ -933,7 +933,7 @@ class Topic
                     }
                 }
 
-                if ($this->user->g_id == $this->feather->forum_env['FEATHER_ADMIN'] || ($this->user->g_moderator == '1' && $this->user->g_mod_promote_users == '1')) {
+                if ($this->user->g_id == $this->feather->forum_env['FEATHER_ADMIN'] || ($this->feather->prefs->get($this->feather->user, 'is_mod') == '1' && $this->user->g_mod_promote_users == '1')) {
                     if ($cur_post['g_promote_next_group']) {
                         $cur_post['user_info'][] = '<dd><span><a href="'.Url::base().'/user/'.$cur_post['poster_id'].'/action/promote/pid/'.$cur_post['id'].'">'.__('Promote user').'</a></span></dd>';
                     }

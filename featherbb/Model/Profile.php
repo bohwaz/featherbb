@@ -70,7 +70,7 @@ class Profile
 
             if (!$this->user->is_admmod) { // A regular user trying to change another user's password?
                 throw new Error(__('No permission'), 403);
-            } elseif ($this->user->g_moderator == '1') {
+            } elseif ($this->feather->prefs->get($this->feather->user, 'is_mod') == '1') {
                 // A moderator trying to change a user's password?
 
                 $user['select'] = array('u.group_id', 'g.g_moderator');
@@ -152,7 +152,7 @@ class Profile
 
             if (!$this->user->is_admmod) { // A regular user trying to change another user's email?
                 throw new Error(__('No permission'), 403);
-            } elseif ($this->user->g_moderator == '1') {
+            } elseif ($this->feather->prefs->get($this->feather->user, 'is_mod') == '1') {
                 // A moderator trying to change a user's email?
                 $user['select'] = array('u.group_id', 'g.g_moderator');
 
@@ -806,7 +806,7 @@ class Profile
                     $form['admin_note'] = Utils::trim($this->request->post('admin_note'));
 
                     // Are we allowed to change usernames?
-                    if ($this->user->g_id == $this->feather->forum_env['FEATHER_ADMIN'] || ($this->user->g_moderator == '1' && $this->user->g_mod_rename_users == '1')) {
+                    if ($this->user->g_id == $this->feather->forum_env['FEATHER_ADMIN'] || ($this->feather->prefs->get($this->feather->user, 'is_mod') == '1' && $this->user->g_mod_rename_users == '1')) {
                         $form['username'] = Utils::trim($this->request->post('req_username'));
 
                         if ($form['username'] != $info['old_username']) {

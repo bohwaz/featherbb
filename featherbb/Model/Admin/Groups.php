@@ -193,8 +193,6 @@ class Groups
             'g_search'              =>  $search,
             'g_search_users'        =>  $search_users,
             'g_send_email'          =>  $send_email,
-            'g_search_flood'        =>  $search_flood,
-            'g_email_flood'         =>  $email_flood,
             'g_report_flood'        =>  $report_flood,
         );
 
@@ -213,7 +211,10 @@ class Groups
             $new_group_id = $this->hook->fire('model.admin.groups.add_edit_group.new_group_id', (int) $add->id());
 
             // Set new preferences
-            $this->feather->prefs->setGroup($new_group_id, array('post.min_interval' => (int) $post_flood));
+            $this->feather->prefs->setGroup($new_group_id, array('post.min_interval' => (int) $post_flood,
+                                                                 'email.min_interval' => (int) $email_flood,
+                                                                 'search.min_interval' => (int) $search_flood,
+                                                                 'is_mod' => $moderator));
 
             // Now lets copy the forum specific permissions from the group which this group is based on
             $select_forum_perms = array('forum_id', 'read_forum', 'post_replies', 'post_topics');
