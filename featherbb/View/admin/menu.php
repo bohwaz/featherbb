@@ -24,19 +24,29 @@ $feather->hooks->fire('view.admin.menu.start');
             <div class="inbox">
                 <ul>
 <? foreach ($menu_items as $perm => $data) {
-    if ($feather->perms->can($feather->user, $perm)) {
-        echo "\t\t\t\t\t".'<li '.($page == strtolower($data['title']) ? 'class="isactive"' : '').'><a href="'.$feather->urlFor($data['url']).'">'.__($data['title']).'</a></li>';
-        // $feather->forum_settings['o_report_method'] == '0' || $feather->forum_settings['o_report_method'] == '2'
+    if (preg_match('/^mod\..*$/', $perm)) {
+        if ($feather->perms->can($feather->user, $perm)) {
+            echo "\t\t\t\t\t".'<li '.($page == strtolower($data['title']) ? 'class="isactive"' : '').'><a href="'.$feather->urlFor($data['url']).'">'.__($data['title']).'</a></li>';
+        }
     }
 } ?>
                 </ul>
             </div>
         </div>
-        <!-- <h2 class="block2"><span><?php _e('Admin menu') ?></span></h2>
+        <h2 class="block2"><span><?php _e('Admin menu') ?></span></h2>
         <div class="box">
             <div class="inbox">
+                <ul>
+<? foreach ($menu_items as $perm => $data) {
+    if (preg_match('/^board\..*$/', $perm)) {
+        if ($feather->perms->can($feather->user, $perm)) {
+            echo "\t\t\t\t\t".'<li '.($page == strtolower($data['title']) ? 'class="isactive"' : '').'><a href="'.$feather->urlFor($data['url']).'">'.__($data['title']).'</a></li>';
+        }
+    }
+} ?>
+                </ul>
             </div>
-        </div> -->
+        </div>
 <?php
 
     // Did we find any plugins?

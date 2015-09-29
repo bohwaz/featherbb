@@ -40,7 +40,7 @@ class Groups
             $this->model->set_default_group($groups, $this->feather);
         }
 
-        AdminUtils::generateAdminMenu('groups');
+        AdminUtils::generateAdminMenu('user groups');
 
         $this->feather->template->setPageInfo(array(
                 'title' => array(Utils::escape($this->config['o_board_title']), __('Admin'), __('User groups')),
@@ -73,7 +73,7 @@ class Groups
             if ($this->request->post('del_group_comply') || $this->request->post('del_group')) {
                 $this->model->delete_group($id);
             } else {
-                AdminUtils::generateAdminMenu('groups');
+                AdminUtils::generateAdminMenu('user groups');
 
                 $this->feather->template->setPageInfo(array(
                         'title' => array(Utils::escape($this->config['o_board_title']), __('Admin'), __('User groups')),
@@ -86,7 +86,7 @@ class Groups
             }
         }
 
-        AdminUtils::generateAdminMenu('groups');
+        AdminUtils::generateAdminMenu('user groups');
 
         $this->feather->template->setPageInfo(array(
                 'title' => array(Utils::escape($this->config['o_board_title']), __('Admin'), __('User groups')),
@@ -113,7 +113,7 @@ class Groups
         // Add/edit a group (stage 1)
         elseif ($this->request->post('add_group') || isset($id)) {
 
-            AdminUtils::generateAdminMenu('groups');
+            AdminUtils::generateAdminMenu('user groups');
 
             $group = $this->model->info_add_group($groups, $id);
 
