@@ -33,6 +33,7 @@ $feather->hooks->fire('view.admin.menu.start');
                 </ul>
             </div>
         </div>
+<? if ($feather->perms->can($feather->user, 'board.view')):?>
         <h2 class="block2"><span><?php _e('Admin menu') ?></span></h2>
         <div class="box">
             <div class="inbox">
@@ -48,7 +49,7 @@ $feather->hooks->fire('view.admin.menu.start');
             </div>
         </div>
 <?php
-
+    endif;
     // Did we find any plugins?
     if (!empty($plugins)) {
         ?>
