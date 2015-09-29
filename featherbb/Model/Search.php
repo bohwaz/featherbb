@@ -134,8 +134,8 @@ class Search
 
             if (!empty($author) || !empty($keywords)) {
                 // Flood protection
-                if ($this->user->last_search && (time() - $this->user->last_search) < $this->user->g_search_flood && (time() - $this->user->last_search) >= 0) {
-                    throw new Error(sprintf(__('Search flood'), $this->user->g_search_flood, $this->user->g_search_flood - (time() - $this->user->last_search)), 429);
+                if ($this->user->last_search && (time() - $this->user->last_search) < $this->feather->prefs->get($this->feather->user, 'search.min_interval') && (time() - $this->user->last_search) >= 0) {
+                    throw new Error(sprintf(__('Search flood'), $this->feather->prefs->get($this->feather->user, 'search.min_interval'), $this->feather->prefs->get($this->feather->user, 'search.min_interval') - (time() - $this->user->last_search)), 429);
                 }
 
                 if (!$this->user->is_guest) {

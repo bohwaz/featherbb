@@ -1459,8 +1459,8 @@ class Profile
             throw new Error(__('Too long email message'), 400);
         }
 
-        if ($this->user->last_email_sent != '' && (time() - $this->user->last_email_sent) < $this->user->g_email_flood && (time() - $this->user->last_email_sent) >= 0) {
-            throw new Error(sprintf(__('Email flood'), $this->user->g_email_flood, $this->user->g_email_flood - (time() - $this->user->last_email_sent)), 429);
+        if ($this->user->last_email_sent != '' && (time() - $this->user->last_email_sent) < $this->feather->prefs->get($this->feather->user, 'email.min_interval') && (time() - $this->user->last_email_sent) >= 0) {
+            throw new Error(sprintf(__('Email flood'), $this->feather->prefs->get($this->feather->user, 'email.min_interval'), $this->feather->prefs->get($this->feather->user, 'email.min_interval') - (time() - $this->user->last_email_sent)), 429);
         }
 
         // Load the "form email" template

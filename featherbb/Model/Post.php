@@ -555,8 +555,8 @@ class Post
             throw new Error(__('Reason too long'), 400);
         }
 
-        if ($this->user->last_report_sent != '' && (time() - $this->user->last_report_sent) < $this->user->g_report_flood && (time() - $this->user->last_report_sent) >= 0) {
-            throw new Error(sprintf(__('Report flood'), $this->user->g_report_flood, $this->user->g_report_flood - (time() - $this->user->last_report_sent)), 429);
+        if ($this->user->last_report_sent != '' && (time() - $this->user->last_report_sent) < $this->feather->prefs->get($this->feather->user, 'report.min_interval') && (time() - $this->user->last_report_sent) >= 0) {
+            throw new Error(sprintf(__('Report flood'), $this->feather->prefs->get($this->feather->user, 'report.min_interval'), $this->feather->prefs->get($this->feather->user, 'report.min_interval') - (time() - $this->user->last_report_sent)), 429);
         }
 
         // Get the topic ID
