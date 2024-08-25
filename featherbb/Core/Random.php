@@ -14,7 +14,7 @@ class Random
     //
     // Compute a hash of $str
     //
-    public static function hash($str)
+    public static function hash(string $str): string
     {
         return sha1($str);
     }
@@ -22,7 +22,7 @@ class Random
     //
     // Generate a random key of length $len
     //
-    public static function key($len, $readable = false, $hash = false)
+    public static function key(int $len, bool $readable = false, bool $hash = false): string
     {
         $key = self::secureRandomBytes($len);
 
@@ -46,7 +46,7 @@ class Random
     // Generate a random password of length $len
     // Compatibility wrapper for random_key
     //
-    public static function pass($len)
+    public static function pass(int $len): string
     {
         return self::key($len, true);
     }
