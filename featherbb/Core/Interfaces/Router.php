@@ -11,7 +11,7 @@ class Router extends SlimSugar
         // if (!(function_exists('apache_get_modules') && in_array('mod_rewrite', apache_get_modules()) && is_file(getcwd().'/.htaccess'))) { // If we have Apache's mod_rewrite enabled
         //     $baseUrl .= '/index.php';
         // }
-        return $baseUrl . static::$slim->getContainer()['router']->pathFor($name, $data, $queryParams);
+        return $baseUrl . static::$slim->getContainer()->get('router')->pathFor($name, $data, $queryParams);
     }
 
     public static function redirect($uri, $message = null, $status = 302)

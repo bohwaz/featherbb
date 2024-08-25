@@ -10,6 +10,7 @@
 namespace FeatherBB\Core;
 
 use FeatherBB\Core\Interfaces\Request;
+use FeatherBB\Core\Interfaces\Feather;
 
 class Url
 {
@@ -777,7 +778,7 @@ class Url
     //
     public static function base()
     {
-        return Request::getUri()->getScheme().'://'.Request::getUri()->getHost().Request::getUri()->getBasePath();
+        return Request::getUri()->getScheme().'://'.Request::getUri()->getHost().Feather::getBasePath();
     }
 
     //
@@ -880,7 +881,7 @@ class Url
                 return false;    // Unrecognised URI scheme. Default to FALSE.
         }
         // Validate host name conforms to DNS "dot-separated-parts".
-        if ($m{'regname'}) {
+        if ($m['regname']) {
             // If host regname specified, check for DNS conformance.
 
             if (!preg_match('/# HTTP DNS host name.

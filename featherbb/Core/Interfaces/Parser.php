@@ -13,7 +13,7 @@ class Parser extends SlimSugar
      */
     public static function parseBbcode(&$text, $hideSmilies = 0)
     {
-        return static::$slim->getContainer()['parser']->parseBbcode($text, $hideSmilies);
+        return static::$slim->getContainer()->get('parser')->parseBbcode($text, $hideSmilies);
     }
 
     /**
@@ -25,7 +25,7 @@ class Parser extends SlimSugar
      */
     public static function parseMessage($text, $hideSmilies)
     {
-        return static::$slim->getContainer()['parser']->parseMessage($text, $hideSmilies);
+        return static::$slim->getContainer()->get('parser')->parseMessage($text, $hideSmilies);
     }
 
     /**
@@ -36,7 +36,7 @@ class Parser extends SlimSugar
      */
     public static function parseSignature($text)
     {
-        return static::$slim->getContainer()['parser']->parseSignature($text);
+        return static::$slim->getContainer()->get('parser')->parseSignature($text);
     }
 
     /**
@@ -51,6 +51,6 @@ class Parser extends SlimSugar
      */
     public static function preparseBbcode($text, &$errors, $isSignature = false)
     {
-        return static::$slim->getContainer()['parser']->preparseBbcode($text, $errors, $isSignature);
+        return static::$slim->getContainer()->get('parser')->preparseBbcode($text, $errors, $isSignature);
     }
 }

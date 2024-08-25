@@ -40,6 +40,7 @@ class Install
     protected $defaultStyle = 'FeatherBB';
     protected $configKeys = ['DB_TYPE', 'DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'DB_PREFIX'];
     protected $errors = [];
+    protected \FeatherBB\Model\Install $model;
 
     public function __construct()
     {

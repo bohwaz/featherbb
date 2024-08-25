@@ -11,6 +11,7 @@ use FeatherBB\Middleware\Csrf;
 use FeatherBB\Middleware\RedirectNonTrailingSlash;
 use Slim\App;
 use Slim\Factory\AppFactory;
+use Slim\Factory\ServerRequestCreatorFactory;
 
 /**
  * Copyright (C) 2015-2019 FeatherBB
@@ -32,6 +33,12 @@ $container = new Container();
 // Set container to create App with on AppFactory
 AppFactory::setContainer($container);
 $app = AppFactory::create();
+$app->addRoutingMiddleware();
+
+$serverRequestCreator = ServerRequestCreatorFactory::create();
+$request = $serverRequestCreator->createServerRequestFromGlobals();
+
+$container->set('request', $request);
 
 // Instantiate Slim
 SlimStatic::boot($app);
@@ -48,4 +55,4 @@ Feather::add(new Core);
 require 'featherbb/routes.php';
 
 // Run it, baby!
-Feather::run();
+Feather::run($request);

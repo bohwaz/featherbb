@@ -14,7 +14,7 @@ class Cache extends SlimSugar
      */
     public static function store($key, $data, $expires = 0)
     {
-        return static::$slim->getContainer()['cache']->store($key, $data, $expires);
+        return static::$slim->getContainer()->get('cache')->store($key, $data, $expires);
     }
 
     /**
@@ -26,7 +26,7 @@ class Cache extends SlimSugar
      */
     public static function retrieve($key)
     {
-        return static::$slim->getContainer()['cache']->retrieve($key);
+        return static::$slim->getContainer()->get('cache')->retrieve($key);
     }
 
     /**
@@ -37,7 +37,7 @@ class Cache extends SlimSugar
      */
     public static function isCached($key)
     {
-        return static::$slim->getContainer()['cache']->isCached($key);
+        return static::$slim->getContainer()->get('cache')->isCached($key);
     }
 
     /**
@@ -46,6 +46,6 @@ class Cache extends SlimSugar
      */
     public static function flush()
     {
-        return static::$slim->getContainer()['cache']->flush();
+        return static::$slim->getContainer()->get('cache')->flush();
     }
 }
