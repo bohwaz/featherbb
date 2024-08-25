@@ -28,6 +28,7 @@ use FeatherBB\Core\Plugin as PluginManager;
 use FeatherBB\Core\Url;
 use FeatherBB\Core\Utils;
 use FeatherBB\Core\View;
+use Slim\Psr7\Response;
 
 class Core
 {
@@ -151,8 +152,9 @@ class Core
         return $res;
     }
 
-    public function __invoke($req, $res, $next)
+    public function __invoke($req, $next)
     {
+        $res = new Response;
         // Set headers
         $res = $this->setHeaders($res);
 

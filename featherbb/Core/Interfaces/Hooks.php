@@ -12,7 +12,7 @@ class Hooks extends SlimSugar
      */
     public static function fire($name)
     {
-        return call_user_func_array([static::$slim->getContainer()['hooks'], 'fire'], func_get_args());
+        return call_user_func_array([static::$slim->getContainer()->get('hooks'), 'fire'], func_get_args());
     }
 
     /**
@@ -23,7 +23,7 @@ class Hooks extends SlimSugar
      */
     public static function fireDB($name)
     {
-        return call_user_func_array([static::$slim->getContainer()['hooks'], 'fireDB'], func_get_args());
+        return call_user_func_array([static::$slim->getContainer()->get('hooks'), 'fireDB'], func_get_args());
     }
 
     /**
@@ -34,6 +34,6 @@ class Hooks extends SlimSugar
      */
     public static function bind($name, $callable, $priority = 10)
     {
-        return static::$slim->getContainer()['hooks']->bind($name, $callable, $priority);
+        return static::$slim->getContainer()->get('hooks')->bind($name, $callable, $priority);
     }
 }

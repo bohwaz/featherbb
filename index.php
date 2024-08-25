@@ -2,6 +2,7 @@
 
 namespace FeatherBB;
 
+use DI\Container;
 use FeatherBB\Core\Interfaces\Feather;
 use FeatherBB\Core\Interfaces\SlimStatic;
 use FeatherBB\Middleware\Auth;
@@ -9,6 +10,7 @@ use FeatherBB\Middleware\Core;
 use FeatherBB\Middleware\Csrf;
 use FeatherBB\Middleware\RedirectNonTrailingSlash;
 use Slim\App;
+use Slim\Factory\AppFactory;
 
 /**
  * Copyright (C) 2015-2019 FeatherBB
@@ -24,8 +26,15 @@ session_start();
 // Load Conposer dependencies
 require 'vendor/autoload.php';
 
+// Create Container using PHP-DI
+$container = new Container();
+
+// Set container to create App with on AppFactory
+AppFactory::setContainer($container);
+$app = AppFactory::create();
+
 // Instantiate Slim
-SlimStatic::boot(new App);
+SlimStatic::boot($app);
 
 // Allow static proxies to be called from anywhere in App
 Statical::addNamespace('*', __NAMESPACE__.'\\*');
